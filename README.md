@@ -1,19 +1,28 @@
 Certainly! Below is a `README.md` file for your project "AttendEase". This README is designed to give an overview of the project, installation instructions, usage information, and details about the configuration.
 
-```markdown
 # AttendEase
 
 AttendEase is a comprehensive attendance management application built with modern web technologies. It leverages Next.js for the frontend, Tailwind CSS for styling, and Drizzle ORM for database operations.
 
 ## Table of Contents
 
-- [Getting Started](#getting-started)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Configuration](#configuration)
-- [Scripts](#scripts)
-- [Technologies Used](#technologies-used)
-- [License](#license)
+- [AttendEase](#attendease)
+  - [Table of Contents](#table-of-contents)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+    - [Database Setup](#database-setup)
+  - [Usage](#usage)
+    - [Development Server](#development-server)
+    - [Building for Production](#building-for-production)
+  - [Configuration](#configuration)
+    - [Tailwind CSS](#tailwind-css)
+    - [Drizzle ORM](#drizzle-orm)
+    - [Middleware](#middleware)
+    - [Utility Functions](#utility-functions)
+  - [Scripts](#scripts)
+  - [Technologies Used](#technologies-used)
+  - [License](#license)
 
 ## Getting Started
 
@@ -130,5 +139,3 @@ The following scripts are available:
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-```
