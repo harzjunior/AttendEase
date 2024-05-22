@@ -1,5 +1,3 @@
-Certainly! Below is a `README.md` file for your project "AttendEase". This README is designed to give an overview of the project, installation instructions, usage information, and details about the configuration.
-
 # AttendEase
 
 AttendEase is a comprehensive attendance management application built with modern web technologies. It leverages Next.js for the frontend, Tailwind CSS for styling, and Drizzle ORM for database operations.
@@ -20,8 +18,10 @@ AttendEase is a comprehensive attendance management application built with moder
     - [Drizzle ORM](#drizzle-orm)
     - [Middleware](#middleware)
     - [Utility Functions](#utility-functions)
+  - [Project Structure](#project-structure)
   - [Scripts](#scripts)
   - [Technologies Used](#technologies-used)
+  - [Author](#author)
   - [License](#license)
 
 ## Getting Started
@@ -117,6 +117,77 @@ Authentication middleware is set up in `src/middleware.js`. It uses `@kinde-oss/
 
 Utility functions for the application are located in `src/utils/index.js` and `src/lib/utils.js`.
 
+## Project Structure
+
+Here is an overview of the project's structure:
+
+- **`/src/app/api/auth/[kindeAuth]/route.js`**: Handles authentication routes.
+  ```javascript
+  import { handleAuth } from "@kinde-oss/kinde-auth-nextjs/server";
+  export const GET = handleAuth();
+  ```
+
+- **`/src/app/dashboard/layout.js`**: Defines the layout for the dashboard including the side navigation and header.
+  ```javascript
+  import React from "react";
+  import SideNav from "./_components/SideNav";
+  import Header from "./_components/Header";
+
+  function layout({ children }) {
+    return (
+      <div>
+        <div className="md:w-64 fixed hidden md:block">
+          <SideNav />
+        </div>
+        <div className="ml-64">
+          <Header />
+          {children}
+        </div>
+      </div>
+    );
+  }
+
+  export default layout;
+  ```
+
+- **`/src/app/dashboard/page.js`**: Defines database schemas for grades, countries, and cities.
+  ```javascript
+  import {
+    mysqlTable,
+    int,
+    varchar,
+    mysqlEnum,
+    uniqueIndex,
+  } from "drizzle-orm/mysql-core";
+
+  export const GRADES = mysqlTable("grades", {
+    id: int("id").primaryKey(),
+    grade: varchar("grade", { length: 10 }).notNull(),
+  });
+
+  export const countries = mysqlTable(
+    "countries",
+    {
+      id: int("id").primaryKey(),
+      name: varchar("name", { length: 256 }),
+    },
+    (countries) => ({
+      nameIndex: uniqueIndex("name_idx").on(countries.name),
+    })
+  );
+
+  export const cities = mysqlTable("cities", {
+    id: int("id").primaryKey(),
+    name: varchar("name", { length: 256 }),
+    countryId: int("country_id").references(() => countries.id),
+    popularity: mysqlEnum("popularity", ["unknown", "known", "popular"]),
+  });
+  ```
+
+- **`/src/app/globals.css`**: Contains global CSS styles.
+- **`/src/common`**: Contains common components like button, carousel, and theme provider.
+- **`/src/components/ui`**: Contains major UI components.
+
 ## Scripts
 
 The following scripts are available:
@@ -135,6 +206,10 @@ The following scripts are available:
 - **Drizzle ORM**: A lightweight ORM for TypeScript and JavaScript.
 - **Kinde Auth**: Authentication for Next.js applications.
 - **MySQL**: A relational database management system.
+
+## Author
+
+This project is a solo effort by Haruna Bah Jibril (harzkane@gmail.com). Despite initial plans to collaborate with a team of four, it proved challenging to be paired with colleagues, leading to this solo endeavor.
 
 ## License
 
