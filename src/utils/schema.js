@@ -4,6 +4,7 @@ import {
   varchar,
   autoincrement,
   uniqueIndex,
+  text,
 } from "drizzle-orm/mysql-core";
 
 // Grade Schema
@@ -15,8 +16,8 @@ export const GRADES = mysqlTable("grades", {
 // Students Schema
 export const STUDENTS = mysqlTable("students", {
   id: int("id").autoincrement().primaryKey(),
-  fullName: varchar("fullName", { length: 50 }).notNull(),
+  fullName: varchar("fullName", { length: 255 }), // Ensure length is adequate
   grade: varchar("grade", { length: 10 }).notNull(),
-  phone: int("phone", { length: 20 }).notNull(),
-  address: varchar("address", { length: 100 }).notNull(),
+  phone: varchar("phone", { length: 255 }).notNull(),
+  address: varchar("address", { length: 255 }).notNull(),
 });

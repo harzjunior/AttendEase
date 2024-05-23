@@ -15,6 +15,7 @@ import GlobalApi from "@/app/_services/GlobalApi";
 export function AddNewStudent() {
   const [openDialog, isOpenDialog] = useState(false);
   const [grades, setGrades] = useState([]);
+  const [students, setStudents] = useState([]);
 
   // react hook form
   const {
@@ -23,7 +24,11 @@ export function AddNewStudent() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    GlobalApi.createNewStudent(data).then((resp) => {
+      console.log(resp);
+    });
+  };
 
   useEffect(() => {
     getAllGradesLst();
@@ -53,7 +58,7 @@ export function AddNewStudent() {
               <label>Full Name</label>
               <Input
                 placeholder="Rabbit Gate"
-                {...register("example", { required: true })}
+                {...register("fullName", { required: true })}
               />
             </div>
             <div className="flex flex-col py-2 space-y-2">
@@ -72,9 +77,12 @@ export function AddNewStudent() {
             <div className="py-2 space-y-2">
               <label>Phone</label>
               <Input
-                type="number"
+                type="tel"
                 placeholder="+234 810 7060 160"
-                {...register("phone")}
+                {...register("phone", {
+                  required: true,
+                  pattern: /^[+]?[0-9\s]*$/,
+                })}
               />
             </div>
             <div className="py-2 space-y-2">
