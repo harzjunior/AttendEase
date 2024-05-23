@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import GlobalApi from "@/app/_services/GlobalApi";
+import { toast } from "sonner";
 
 export function AddNewStudent() {
   const [openDialog, setOpenDialog] = useState(false);
@@ -29,7 +30,7 @@ export function AddNewStudent() {
       console.log(resp);
       if (resp.data) {
         setOpenDialog(false);
-        // toast("New student has been added");
+        toast.success("New student has been added");
       }
     });
   };
