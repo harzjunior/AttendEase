@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 import GlobalApi from "@/app/_services/GlobalApi";
 
 export function AddNewStudent() {
-  const [openDialog, isOpenDialog] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
   const [grades, setGrades] = useState([]);
   const [students, setStudents] = useState([]);
 
@@ -27,6 +27,10 @@ export function AddNewStudent() {
   const onSubmit = (data) => {
     GlobalApi.createNewStudent(data).then((resp) => {
       console.log(resp);
+      if (resp.data) {
+        setOpenDialog(false);
+        // toast("New student has been added");
+      }
     });
   };
 
@@ -47,7 +51,7 @@ export function AddNewStudent() {
 
   return (
     <div>
-      <Button onClick={() => isOpenDialog(true)}>+ Add New Student</Button>
+      <Button onClick={() => setOpenDialog(true)}>+ Add New Student</Button>
       <Dialog open={openDialog}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader className="py-4">
@@ -93,7 +97,7 @@ export function AddNewStudent() {
               />
             </div>
             <div className="flex justify-end items-center gap-3 mt-5">
-              <Button onClick={() => isOpenDialog(false)} variant="ghost">
+              <Button onClick={() => setOpenDialog(false)} variant="ghost">
                 Cancel
               </Button>
               <Button type="submit">Save</Button>

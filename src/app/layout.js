@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/common/theme-provider";
+// import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,6 +20,9 @@ export default function RootLayout({ children }) {
           enableSystem
           disableTransitionOnChange
         >
+          {/* sonner for used in AddNewStudent. a confirmation of successful form submit */}
+          {/* npx shadcn-ui@latest add sonner  */}
+          {/* <Toaster /> */}
           {children}
         </ThemeProvider>
       </body>
