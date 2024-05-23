@@ -1,6 +1,5 @@
 "use client";
 
-// import { ModeToggle } from "@/common/ModeToggle";
 import { useTheme } from "next-themes";
 import { useEffect } from "react";
 
@@ -11,7 +10,7 @@ function Dashboard() {
     setTheme("dark");
   }, []);
 
-  return <>{/* <ModeToggle /> */}</>;
+  return <div>Attendance</div>;
 }
 
 export default Dashboard;

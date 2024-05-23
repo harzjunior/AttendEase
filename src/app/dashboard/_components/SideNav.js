@@ -4,6 +4,7 @@ import { GraduationCap, Hand, LayersIcon, Settings } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import Avatar from "./common/Avatar";
+import Link from "next/link";
 
 function SideNav() {
   const menuList = [
@@ -39,13 +40,12 @@ function SideNav() {
       <hr className="my-5"></hr>
 
       {menuList.map((menu, index) => (
-        <h2
-          key={index}
-          className="flex items-center text-center gap-3 p-4 text-slate-500 hover:bg-primary cursor-pointer rounded-lg"
-        >
-          <menu.icon />
-          {menu.name}
-        </h2>
+        <Link key={index} href={menu.path}>
+          <h2 className="flex items-center text-center gap-3 p-4 text-slate-500 hover:bg-primary cursor-pointer rounded-lg">
+            <menu.icon />
+            {menu.name}
+          </h2>
+        </Link>
       ))}
 
       {/* user avatar */}
