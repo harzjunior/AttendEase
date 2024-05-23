@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,19 +10,35 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
+import GlobalApi from "@/app/_services/GlobalApi";
 
 export function AddNewStudent() {
   const [openDialog, isOpenDialog] = useState(false);
+  const [grades, setGrades] = useState([]);
 
   // react hook form
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => console.log(data);
+
+  useEffect(() => {
+    getAllGradesLst();
+  }, []);
+
+  //let's call our API
+  const getAllGradesLst = async () => {
+    try {
+      const resp = await GlobalApi.getAllGrades();
+      setGrades(resp.data);
+      console.log(resp.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div>
