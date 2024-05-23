@@ -62,11 +62,11 @@ export function AddNewStudent() {
                 className="p-3 border rounded-lg"
                 {...register("grade", { required: true })}
               >
-                <option value={"5th"}>5th</option>
-                <option value={"6th"}>6th</option>
-                <option value={"7th"}>7th</option>
-                <option value={"8th"}>8th</option>
-                <option value={"9th"}>9th</option>
+                {grades.map((item) => (
+                  <option key={item.id} value={item.grade}>
+                    {item.grade}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="py-2 space-y-2">
