@@ -18,6 +18,10 @@ AttendEase is a comprehensive attendance management application built with moder
     - [Drizzle ORM](#drizzle-orm)
     - [Middleware](#middleware)
     - [Utility Functions](#utility-functions)
+  - [APIs](#apis)
+    - [Authentication API](#authentication-api)
+    - [Student API](#student-api)
+    - [Grade API](#grade-api)
   - [Scripts](#scripts)
   - [Technologies Used](#technologies-used)
   - [License](#license)
@@ -115,6 +119,58 @@ Authentication middleware is set up in `src/middleware.js` using `@kinde-oss/kin
 ### Utility Functions
 
 Utility functions for the application are located in `src/utils/index.js` and `src/lib/utils.js`.
+
+## APIs
+
+### Authentication API
+
+The authentication API is located at `src/app/api/auth/[kindeAuth]/route.js`. It handles user authentication using Kinde Auth.
+
+### Student API
+
+The student API is located at `src/app/api/student/route.js`. It handles creating new student records.
+
+- **POST /api/student**
+  - **Description**: Adds a new student record to the database.
+  - **Request Body**: 
+    ```json
+    {
+      "fullName": "John Doe",
+      "grade": "1st",
+      "phone": "+1234567890",
+      "address": "123 Main St"
+    }
+    ```
+  - **Response**: 
+    ```json
+    {
+      "id": 1,
+      "fullName": "John Doe",
+      "grade": "1st",
+      "phone": "+1234567890",
+      "address": "123 Main St"
+    }
+    ```
+
+### Grade API
+
+The grade API is located at `src/app/api/grade/route.js`. It handles retrieving grades from the database.
+
+- **GET /api/grade**
+  - **Description**: Retrieves all grade records from the database.
+  - **Response**: 
+    ```json
+    [
+      {
+        "id": 1,
+        "grade": "1st"
+      },
+      {
+        "id": 2,
+        "grade": "2nd"
+      }
+    ]
+    ```
 
 ## Scripts
 
