@@ -10,4 +10,12 @@ const createNewStudent = (data) => axios.post("/api/student", data); //post meth
 //gets all students from db
 const getAllStudents = () => axios.get("/api/student");
 
-export default { getAllGrades, createNewStudent, getAllStudents };
+//deletes a students from db by id
+const deleteStudentRecord = (id) => axios.delete("/api/student?id=" + id);
+
+export default {
+  getAllGrades,
+  createNewStudent,
+  getAllStudents,
+  deleteStudentRecord,
+};

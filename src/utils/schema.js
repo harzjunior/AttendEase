@@ -3,8 +3,6 @@ import {
   int,
   varchar,
   autoincrement,
-  uniqueIndex,
-  text,
 } from "drizzle-orm/mysql-core";
 
 // Grade Schema

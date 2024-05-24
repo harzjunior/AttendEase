@@ -34,9 +34,15 @@ function Student() {
       <h2 className="flex justify-between items-center font-bold text-2xl ">
         {totalStudent ? "Total " : ""} Students{" "}
         {totalStudent ? totalStudent : ""}
-        <AddNewStudent onAddStudent={handleAddStudent} />
+        <AddNewStudent
+          onAddStudent={handleAddStudent}
+          refreshData={getAllData} // for AddNewStudent component to show the current update after record has been added
+        />
       </h2>
-      <StudentTableList students={students} />
+      <StudentTableList
+        students={students}
+        refreshData={getAllData} // for StudentTableList component to show the current update after record has been deleted
+      />
     </div>
   );
 }

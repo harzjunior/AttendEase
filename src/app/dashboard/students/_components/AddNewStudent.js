@@ -15,7 +15,7 @@ import { toast } from "sonner";
 import { LoaderIcon } from "lucide-react";
 
 //onAddStudent from Student component
-export function AddNewStudent({ onAddStudent }) {
+export function AddNewStudent({ onAddStudent, refreshData }) {
   const [openDialog, setOpenDialog] = useState(false);
   const [loading, setLoading] = useState(false);
   const [grades, setGrades] = useState([]);
@@ -37,6 +37,7 @@ export function AddNewStudent({ onAddStudent }) {
           setOpenDialog(false);
           toast.success("New student has been added");
           onAddStudent(resp.data); // Update the parent component's state
+          refreshData();
           reset(); //clear form
         }
       })

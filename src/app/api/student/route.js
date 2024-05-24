@@ -1,6 +1,7 @@
 const { NextResponse } = require("next/server");
 import { db } from "@/utils";
 import { STUDENTS } from "@/utils/schema";
+import { eq } from "drizzle-orm";
 
 // we will use this API in our GlobalApi.js
 
@@ -25,4 +26,16 @@ export async function GET(req) {
   // get the grades from the table
   const result = await db.select().from(STUDENTS);
   return NextResponse.json(result);
+}
+
+//delete data
+export async function DELETE(req) {
+  // get the grades from the table
+  const { searchParams } = new URL(req.url);
+  const _id = searchParams.get("id"); //we can get the data from pops (data.id) in where we'd use it e.g in StudentTableList component
+
+  const result = await db
+    .delete(STUDENTS)
+    .where(eq(STUDENTS.id, parseInt(_id))); //delete by student id that matches searchParam _id
+  return NextResponse.json({ success: true, result });
 }

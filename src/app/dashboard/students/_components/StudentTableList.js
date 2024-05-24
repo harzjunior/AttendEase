@@ -5,16 +5,68 @@ import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied
 import { Button } from "@/components/ui/button";
 import { Search, Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import GlobalApi from "@/app/_services/GlobalApi";
+import { toast } from "sonner";
 
-function StudentTableList({ students }) {
+function StudentTableList({ students, refreshData }) {
   const [searchInput, setSearchInput] = useState(""); // searchInput used in AgGridReact
 
-  // custom button for the column grid
-  const CustomBtn = () => {
+  //handleDelete record
+  const handleDelete = (id) => {
+    GlobalApi.deleteStudentRecord(id)
+      .then((resp) => {
+        if (resp.data && resp.data.success) {
+          toast.success("Record Successfully Deleted");
+          refreshData(); // call this function by props from Student component
+        }
+      })
+      .catch((error) => {
+        console.error("Error deleting student record:", error);
+        toast.warning("Failed to delete the record");
+      });
+  };
+
+  // custom button for the column grid and other component from shadcn/ui
+  const CustomBtn = (props) => {
     return (
-      <Button variant="destructive">
-        <Trash className="text-white" />
-      </Button>
+      <AlertDialog>
+        <AlertDialogTrigger>
+          <Button variant="destructive">
+            <Trash className="text-white" />
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-red-500">
+              Are you absolutely sure?
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete your
+              record and remove your data from our servers.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => handleDelete(props?.data?.id)}
+              className="hover:bg-red-500"
+            >
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     );
   };
 
