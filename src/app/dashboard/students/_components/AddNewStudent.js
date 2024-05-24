@@ -128,7 +128,11 @@ export function AddNewStudent() {
               >
                 Cancel
               </Button>
-              <Button type="submit" disable={loading}>
+              <Button
+                type="submit"
+                // disable={loading}
+                disable={loading ? loading.toString() : undefined}
+              >
                 {loading ? <LoaderIcon className="animate-spin" /> : "Save"}
               </Button>
             </div>

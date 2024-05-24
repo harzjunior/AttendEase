@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AddNewStudent } from "./_components/AddNewStudent";
 import GlobalApi from "@/app/_services/GlobalApi";
+import StudentTableList from "./_components/StudentTableList";
 
 function Student() {
   const [students, setStudents] = useState([]);
@@ -11,7 +12,9 @@ function Student() {
     getAllData();
   }, []);
 
-  //let's call our API
+  /**
+   * let's call our API
+   */
   const getAllData = async () => {
     try {
       const studentResp = await GlobalApi.getAllStudents();
@@ -30,24 +33,7 @@ function Student() {
         Students
         <AddNewStudent />
       </h2>
-      {students.map((student) => (
-        <>
-          <div className="flex justify-between items-center">
-            <ul>
-              <li>{student.fullName}</li>
-            </ul>
-            <ul>
-              <li>{student.grade}</li>
-            </ul>
-            <ul>
-              <li>{student.phone}</li>
-            </ul>
-            <ul>
-              <li>{student.address}</li>
-            </ul>
-          </div>
-        </>
-      ))}
+      <StudentTableList students={students} />
     </div>
   );
 }
