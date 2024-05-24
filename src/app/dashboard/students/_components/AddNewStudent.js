@@ -26,13 +26,18 @@ export function AddNewStudent() {
   } = useForm();
 
   const onSubmit = (data) => {
-    GlobalApi.createNewStudent(data).then((resp) => {
-      console.log(resp);
-      if (resp.data) {
-        setOpenDialog(false);
-        toast.success("New student has been added");
-      }
-    });
+    event.preventDefault();
+    GlobalApi.createNewStudent(data)
+      .then((resp) => {
+        console.log(resp);
+        if (resp.data) {
+          setOpenDialog(false);
+          toast.success("New student has been added");
+        }
+      })
+      .catch((error) => {
+        console.error("Error creating new student:", error);
+      });
   };
 
   useEffect(() => {
