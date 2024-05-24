@@ -1,10 +1,11 @@
 "use client";
 
+import { useEffect } from "react";
 import { GraduationCap, Hand, LayersIcon, Settings } from "lucide-react";
 import Image from "next/image";
-import React from "react";
 import Avatar from "./common/Avatar";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 function SideNav() {
   const menuList = [
@@ -34,6 +35,13 @@ function SideNav() {
     },
   ];
 
+  //to keep track of nav elements/items active position
+  const path = usePathname();
+
+  useEffect(() => {
+    console.log(path);
+  }, [path]);
+
   return (
     <div className="border shadow-md h-screen p-5">
       <Image src={"/logo.svg"} height={180} width={50} alt="logo" priority />
@@ -41,7 +49,11 @@ function SideNav() {
 
       {menuList.map((menu, index) => (
         <Link key={index} href={menu.path}>
-          <h2 className="flex items-center text-center gap-3 p-4 text-slate-500 hover:bg-primary cursor-pointer rounded-lg">
+          <h2
+            className={`${
+              path == menu.path && "text-slate-500 bg-primary"
+            } flex items-center text-center gap-3 p-4 my-1 text-slate-500 hover:bg-primary cursor-pointer rounded-lg`}
+          >
             <menu.icon />
             {menu.name}
           </h2>
