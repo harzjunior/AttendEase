@@ -44,15 +44,15 @@ export function AddNewStudent() {
   };
 
   useEffect(() => {
-    getAllGradesLst();
+    getAllData();
   }, []);
 
   //let's call our API
-  const getAllGradesLst = async () => {
+  const getAllData = async () => {
     try {
-      const resp = await GlobalApi.getAllGrades();
-      setGrades(resp.data);
-      console.log(resp.data);
+      const gradeResp = await GlobalApi.getAllGrades();
+
+      setGrades(gradeResp.data);
     } catch (error) {
       console.error(error);
     }
