@@ -22,6 +22,7 @@ export function AddNewStudent() {
   const {
     register,
     handleSubmit,
+    reset, //clears the form
     formState: { errors },
   } = useForm();
 
@@ -33,6 +34,7 @@ export function AddNewStudent() {
         if (resp.data) {
           setOpenDialog(false);
           toast.success("New student has been added");
+          reset(); //clear form
         }
       })
       .catch((error) => {
@@ -70,6 +72,11 @@ export function AddNewStudent() {
                 placeholder="Rabbit Gate"
                 {...register("fullName", { required: true })}
               />
+              {errors.fullName?.type === "required" && (
+                <p role="alert" className="text-red-400 ">
+                  Full name is required
+                </p>
+              )}
             </div>
             <div className="flex flex-col py-2 space-y-2">
               <label>Select a Grade</label>
@@ -94,16 +101,30 @@ export function AddNewStudent() {
                   pattern: /^[+]?[0-9\s]*$/,
                 })}
               />
+              {errors.phone?.type === "required" && (
+                <p role="alert" className="text-red-400 ">
+                  Phone number is required
+                </p>
+              )}
             </div>
             <div className="py-2 space-y-2">
               <label>Address</label>
               <Input
                 placeholder="Anvil apt City Center"
-                {...register("address")}
+                {...register("address", { required: true })}
               />
+              {errors.address?.type === "required" && (
+                <p role="alert" className="text-red-400 ">
+                  Address is required
+                </p>
+              )}
             </div>
             <div className="flex justify-end items-center gap-3 mt-5">
-              <Button onClick={() => setOpenDialog(false)} variant="ghost">
+              <Button
+                type="button"
+                onClick={() => setOpenDialog(false)}
+                variant="ghost"
+              >
                 Cancel
               </Button>
               <Button type="submit">Save</Button>
