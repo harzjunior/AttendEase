@@ -14,7 +14,8 @@ import GlobalApi from "@/app/_services/GlobalApi";
 import { toast } from "sonner";
 import { LoaderIcon } from "lucide-react";
 
-export function AddNewStudent() {
+//onAddStudent from Student component
+export function AddNewStudent({ onAddStudent }) {
   const [openDialog, setOpenDialog] = useState(false);
   const [loading, setLoading] = useState(false);
   const [grades, setGrades] = useState([]);
@@ -35,6 +36,7 @@ export function AddNewStudent() {
           setLoading(false);
           setOpenDialog(false);
           toast.success("New student has been added");
+          onAddStudent(resp.data); // Update the parent component's state
           reset(); //clear form
         }
       })

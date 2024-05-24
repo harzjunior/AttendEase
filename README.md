@@ -22,6 +22,11 @@ AttendEase is a comprehensive attendance management application built with moder
     - [Authentication API](#authentication-api)
     - [Student API](#student-api)
     - [Grade API](#grade-api)
+  - [Components](#components)
+    - [react-hook-form](#react-hook-form)
+    - [axios](#axios)
+    - [ag-grid-react](#ag-grid-react)
+  - [Sample Data](#sample-data)
   - [Scripts](#scripts)
   - [Technologies Used](#technologies-used)
   - [License](#license)
@@ -128,7 +133,7 @@ The authentication API is located at `src/app/api/auth/[kindeAuth]/route.js`. It
 
 ### Student API
 
-The student API is located at `src/app/api/student/route.js`. It handles creating new student records.
+The student API is located at `src/app/api/student/route.js`. It handles creating new student records and retrieving all students.
 
 - **POST /api/student**
   - **Description**: Adds a new student record to the database.
@@ -152,6 +157,28 @@ The student API is located at `src/app/api/student/route.js`. It handles creatin
     }
     ```
 
+- **GET /api/student**
+  - **Description**: Retrieves all student records from the database.
+  - **Response**: 
+    ```json
+    [
+      {
+        "id": 1,
+        "fullName": "John Doe",
+        "grade": "1st",
+        "phone": "+1234567890",
+        "address": "123 Main St"
+      },
+      {
+        "id": 2,
+        "fullName": "Jane Smith",
+        "grade": "2nd",
+        "phone": "+0987654321",
+        "address": "456 Oak Avenue"
+      }
+    ]
+    ```
+
 ### Grade API
 
 The grade API is located at `src/app/api/grade/route.js`. It handles retrieving grades from the database.
@@ -172,6 +199,42 @@ The grade API is located at `src/app/api/grade/route.js`. It handles retrieving 
     ]
     ```
 
+## Components
+
+### react-hook-form
+
+Used for form handling and validation.
+
+- **Usage**: Simplifies form validation and submission.
+- **Documentation**: [react-hook-form](https://react-hook-form.com/get-started)
+
+### axios
+
+Used for making HTTP requests to the backend APIs.
+
+- **Usage**: Provides a simple and consistent interface for sending asynchronous HTTP requests and handling responses.
+- **Documentation**: [axios](https://axios-http.com/docs/intro)
+
+### ag-grid-react
+
+Used to display data in a table format with powerful features like sorting, filtering, and custom cell rendering.
+
+- **Usage**: Create tables that list student records with features like filtering and custom buttons.
+- **Documentation**: [ag-grid-react](https://www.ag-grid.com/react-data-grid/)
+
+## Sample Data
+
+To populate the database with some initial data for testing, you can use the following SQL commands:
+
+```sql
+INSERT INTO grades (grade) VALUES ('1st'), ('2nd'), ('3rd');
+
+INSERT INTO students (fullName, grade, phone, address) VALUES
+('John Doe', '1st', '+1234567890', '123 Maple Street'),
+('Jane Smith', '2nd', '+0987654321', '456 Oak Avenue'),
+('Alice Johnson', '3rd', '+1122334455', '789 Pine Road');
+```
+
 ## Scripts
 
 The following scripts are available:
@@ -190,6 +253,9 @@ The following scripts are available:
 - **Drizzle ORM**: A lightweight ORM for TypeScript and JavaScript.
 - **Kinde Auth**: Authentication for Next.js applications.
 - **MySQL**: A relational database management system.
+- **react-hook-form**: Easy form handling and validation for React.
+- **axios**: Promise-based HTTP client for making requests to the backend.
+- **ag-grid-react**: A powerful React data grid for displaying and manipulating large datasets.
 
 ## License
 
@@ -200,5 +266,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ### Author Information
 
 This project was developed by Haruna Bah Jibril (harzkane@gmail.com) as a solo project.
-
----

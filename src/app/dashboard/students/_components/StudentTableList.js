@@ -4,13 +4,10 @@ import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the 
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the grid
 import { Button } from "@/components/ui/button";
 import { Search, Trash } from "lucide-react";
-import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 
 function StudentTableList({ students }) {
-  const [searchInput, setSearchInput] = useState(); // searchInput used in AgGridReact
-
-  // Column ag-grid Definitions: Defines the columns to be displayed.
+  const [searchInput, setSearchInput] = useState(""); // searchInput used in AgGridReact
 
   // custom button for the column grid
   const CustomBtn = () => {
@@ -21,6 +18,7 @@ function StudentTableList({ students }) {
     );
   };
 
+  // Column ag-grid Definitions: Defines the columns to be displayed.
   const [colDefs, setColDefs] = useState([
     { field: "id", filter: true },
     { field: "fullName", filter: true },
@@ -33,14 +31,14 @@ function StudentTableList({ students }) {
   const [rowData, setRowData] = useState([]);
 
   // only refresh the page when there is students data
-
   useEffect(() => {
-    students && setRowData(students);
+    if (students) {
+      setRowData(students);
+    }
   }, [students]);
 
   // react hook form
   const {
-    register,
     formState: { errors },
   } = useForm();
 
@@ -60,7 +58,7 @@ function StudentTableList({ students }) {
           <input
             className="outline-none w-full"
             type="text"
-            placeholder="Search on anything..."
+            placeholder="Search on record..."
             onChange={(e) => {
               setSearchInput(e.target.value); //used in AgGridReact component
             }}
