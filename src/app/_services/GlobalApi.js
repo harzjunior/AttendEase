@@ -16,21 +16,16 @@ const deleteStudentRecord = (id) => axios.delete("/api/student?id=" + id);
 
 // ==========================================Attendance============================================
 
-//create Attendance and used in submit form
-const createNewAttendance = (data) => axios.post("/api/attendance", data); //post method and pass in the data param
-
 //gets all Attendances from db
-const getAllAttendances = () => axios.get("/api/attendance");
-
-//deletes a Attendances from db by id
-const deleteAttendanceRecord = (id) => axios.delete("/api/attendance?id=" + id);
+const getAttendanceList = (grade, month) => {
+  // console.log(`Fetching attendance for grade=${grade}&month=${month}`);
+  return axios.get(`/api/attendance?grade=${grade}&month=${month}`);
+};
 
 export default {
   getAllGrades,
   createNewStudent,
   getAllStudents,
   deleteStudentRecord,
-  createNewAttendance,
-  getAllAttendances,
-  deleteAttendanceRecord,
+  getAttendanceList,
 };

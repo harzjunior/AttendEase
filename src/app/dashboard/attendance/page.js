@@ -2,7 +2,9 @@
 
 import GradeSelection from "@/app/_components/GradeSelection";
 import MonthSelection from "@/app/_components/MonthSelection";
+import GlobalApi from "@/app/_services/GlobalApi";
 import { Button } from "@/components/ui/button";
+import moment from "moment/moment";
 import { useState } from "react";
 
 function Attendance() {
@@ -12,7 +14,16 @@ function Attendance() {
 
   // call the searchHandler function
   const searchHandler = () => {
-    console.log("Grade: " + selectGrade, "Month: " + selectMonth);
+
+    const formattedMonth = moment(selectMonth).format("MM/YYYY");
+
+    GlobalApi.getAttendanceList(selectGrade, formattedMonth)
+      .then((resp) => {
+        console.log("API Response:", resp.data);
+      })
+      .catch((error) => {
+        console.error("API Call Error:", error);
+      });
   };
 
   return (

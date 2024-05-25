@@ -1,41 +1,40 @@
 const { NextResponse } = require("next/server");
 import { db } from "@/utils";
-import { ATTENDANCE } from "@/utils/schema";
-import { eq } from "drizzle-orm";
+import { ATTENDANCE, STUDENTS } from "@/utils/schema";
+import { eq, isNull, or } from "drizzle-orm";
 
 // we will use this API in our GlobalApi.js
 
-//post data
-export async function POST(req, res) {
-  // post the students from the table
-
-  const data = await req.json();
-
-  const result = await db.insert(ATTENDANCE).values({
-    studentId: data?.studentId,
-    present: data?.present,
-    day: data?.day,
-    date: data?.date,
-  });
-
-  return NextResponse.json(result);
-}
-
 //get data
+//we need to connect attendance table and student table together, therefore, we need to fetch all the student table
 export async function GET(req) {
   // get the attendance from the table
-  const result = await db.select().from(ATTENDANCE);
-  return NextResponse.json(result);
-}
-
-//delete data
-export async function DELETE(req) {
-  // get the attendance from the table
   const { searchParams } = new URL(req.url);
-  const _id = searchParams.get("id"); //we can get the data from pops (data.id) in where we'd use it e.g in StudentTableList component
+  const grade = searchParams.get("grade");
+  const month = searchParams.get("month");
 
-  const result = await db
-    .delete(ATTENDANCE)
-    .where(eq(ATTENDANCE.id, parseInt(_id))); //delete by student id that matches searchParam _id
-  return NextResponse.json({ success: true, result });
+  try {
+    const result = await db
+      .select({
+        fullName: STUDENTS.fullName,
+        present: ATTENDANCE.present,
+        day: ATTENDANCE.day,
+        date: ATTENDANCE.date,
+        grade: STUDENTS.grade,
+        studentId: STUDENTS.id,
+        attendanceId: ATTENDANCE.id,
+      })
+      .from(STUDENTS)
+      .leftJoin(ATTENDANCE, eq(STUDENTS.id, ATTENDANCE.studentId))
+      .where(eq(STUDENTS.grade, grade))
+      .where(or(eq(ATTENDANCE.date, month), isNull(eq(ATTENDANCE.date)))); //also include students who do not have any attendance records for the specified month
+
+    return NextResponse.json({ success: true, result });
+  } catch (error) {
+    console.error("Query Error:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch attendance" },
+      { status: 500 }
+    );
+  }
 }
