@@ -3,19 +3,29 @@ import {
   int,
   varchar,
   autoincrement,
+  boolean,
 } from "drizzle-orm/mysql-core";
 
 // Grade Schema
 export const GRADES = mysqlTable("grades", {
-  id: int("id").primaryKey(),
+  id: int("id", { length: 11 }).primaryKey(),
   grade: varchar("grade", { length: 10 }).notNull(),
 });
 
 // Students Schema
 export const STUDENTS = mysqlTable("students", {
-  id: int("id").autoincrement().primaryKey(),
-  fullName: varchar("fullName", { length: 255 }), // Ensure length is adequate
+  id: int("id", { length: 11 }).autoincrement().primaryKey(),
+  fullName: varchar("fullName", { length: 255 }), //
   grade: varchar("grade", { length: 10 }).notNull(),
   phone: varchar("phone", { length: 255 }).notNull(),
   address: varchar("address", { length: 255 }).notNull(),
+});
+
+// Students Schema
+export const ATTENDANCE = mysqlTable("attendance", {
+  id: int("id").autoincrement().primaryKey(),
+  studentId: int("studentId", { length: 11 }),
+  present: boolean("present").default(false), //boolean by default is false
+  day: int("day", { length: 11 }).notNull(), //hold days of the months
+  date: varchar("date", { length: 20 }).notNull(), // holds mon and yr i.e 03/2020
 });
