@@ -1,26 +1,44 @@
 "use client";
 
 import GradeSelection from "@/app/_components/GradeSelection";
-import MonthSelections from "@/app/_components/MonthSelections";
+import MonthSelection from "@/app/_components/MonthSelection";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
-function page() {
+function Attendance() {
+  // states for months and grades
+  const [selectMonth, setSelectMonth] = useState();
+  const [selectGrade, setSelectGrade] = useState();
+
+  // call the searchHandler function
+  const searchHandler = () => {
+    console.log("Grade: " + selectGrade, "Month: " + selectMonth);
+  };
+
   return (
     <div className="p-10">
       <h2 className="font-bold text-2xl ">Attendance</h2>
       <div className="flex items-center border shadow-sm rounded-lg my-5 p-5 gap-4 ">
         <div className="flex items-center gap-2">
           <label>Select Month:</label>
-          <MonthSelections />
+          <MonthSelection
+            selectedMonth={(value) => {
+              setSelectMonth(value);
+            }}
+          />
         </div>
         <div className="flex items-center gap-2">
           <label>Select Grade:</label>
-          <GradeSelection />
+          <GradeSelection
+            selectedGrade={(value) => {
+              setSelectGrade(value);
+            }}
+          />
         </div>
-        <Button>Search</Button>
+        <Button onClick={() => searchHandler()}>Search</Button>
       </div>
     </div>
   );
 }
 
-export default page;
+export default Attendance;

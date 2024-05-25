@@ -2,7 +2,8 @@ import { useForm } from "react-hook-form";
 import GlobalApi from "../_services/GlobalApi";
 import { useEffect, useState } from "react";
 
-function GradeSelection() {
+// selectedGrade used in Attendance component
+function GradeSelection({ selectedGrade }) {
   const [grades, setGrades] = useState([]);
 
   useEffect(() => {
@@ -22,7 +23,10 @@ function GradeSelection() {
 
   return (
     <div>
-      <select className="p-2 border rounded-lg">
+      <select
+        className="p-2 border rounded-lg"
+        onChange={(e) => selectedGrade(e.target.value)}
+      >
         {grades.map((item) => (
           <option key={item.id} value={item.grade}>
             {item.grade}

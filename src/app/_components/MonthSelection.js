@@ -12,7 +12,8 @@ import { addMonths } from "date-fns";
 import moment from "moment/moment";
 import { Calendar } from "@/components/ui/calendar";
 
-function MonthSelections({ selectedMonth }) {
+// selectedMonth prop used in Attendance component
+function MonthSelection({ selectedMonth }) {
   const today = new Date();
   const nextMonth = addMonths(new Date(), 0); //current new date and month (0). also used moment to format date to own specifics
   const [month, setMonth] = useState(nextMonth);
@@ -34,7 +35,7 @@ function MonthSelections({ selectedMonth }) {
             mode="single"
             month={month}
             onMonthChange={(value) => {
-              //   selectedMonth(value);
+              selectedMonth(value);
               setMonth(value);
             }} //setMonth to the value provided by the month change
             className="flex justify-center flex-1"
@@ -45,4 +46,4 @@ function MonthSelections({ selectedMonth }) {
   );
 }
 
-export default MonthSelections;
+export default MonthSelection;
