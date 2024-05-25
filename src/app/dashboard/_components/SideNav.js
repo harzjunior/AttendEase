@@ -38,9 +38,9 @@ function SideNav() {
   //to keep track of nav elements/items active position
   const path = usePathname();
 
-  useEffect(() => {
-    console.log(path);
-  }, [path]);
+  // useEffect(() => {
+  //   console.log(path);
+  // }, [path]);
 
   return (
     <div className="border shadow-md h-screen p-5">
