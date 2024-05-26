@@ -22,6 +22,7 @@ AttendEase is a comprehensive attendance management application built with moder
     - [Authentication API](#authentication-api)
     - [Student API](#student-api)
     - [Grade API](#grade-api)
+    - [Attendance API](#attendance-api)
   - [Components](#components)
     - [react-hook-form](#react-hook-form)
     - [axios](#axios)
@@ -199,6 +200,42 @@ The grade API is located at `src/app/api/grade/route.js`. It handles retrieving 
     ]
     ```
 
+### Attendance API
+
+The attendance API is located at `src/app/api/attendance/route.js`. It handles retrieving attendance records by grade and month.
+
+- **GET /api/attendance**
+  - **Description**: Retrieves attendance records for a specific grade and month.
+  - **Query Parameters**:
+    - `grade`: The grade of the students (e.g., `1st`, `2nd`).
+    - `month`: The month and year of the attendance records in the format `MM/YYYY`.
+  - **Response**:
+    ```json
+    {
+      "success": true,
+      "result": [
+        {
+          "fullName": "John Doe",
+          "present": 1,
+          "day": 1,
+          "date": "03/2020",
+          "grade": "1st",
+          "studentId": 1,
+          "attendanceId": 1
+        },
+        {
+          "fullName": "Jane Smith",
+          "present": 1,
+          "day": 1,
+          "date": "03/2020",
+          "grade": "1st",
+          "studentId": 2,
+          "attendanceId": 2
+        }
+      ]
+    }
+    ```
+
 ## Components
 
 ### react-hook-form
@@ -233,6 +270,10 @@ INSERT INTO students (fullName, grade, phone, address) VALUES
 ('John Doe', '1st', '+1234567890', '123 Maple Street'),
 ('Jane Smith', '2nd', '+0987654321', '456 Oak Avenue'),
 ('Alice Johnson', '3rd', '+1122334455', '789 Pine Road');
+
+INSERT INTO attendance (studentId, present, day, date) VALUES
+(1, 1, 1, '03/2020'),
+(2, 1, 1, '03/2020');
 ```
 
 ## Scripts
@@ -253,7 +294,9 @@ The following scripts are available:
 - **Drizzle ORM**: A lightweight ORM for TypeScript and JavaScript.
 - **Kinde Auth**: Authentication for Next.js applications.
 - **MySQL**: A relational database management system.
-- **react-hook-form**: Easy form handling and validation for React.
+- **react-hook-form**: Easy form handling
+
+ and validation for React.
 - **axios**: Promise-based HTTP client for making requests to the backend.
 - **ag-grid-react**: A powerful React data grid for displaying and manipulating large datasets.
 

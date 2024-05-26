@@ -6,20 +6,21 @@ import GlobalApi from "@/app/_services/GlobalApi";
 import { Button } from "@/components/ui/button";
 import moment from "moment/moment";
 import { useState } from "react";
+import AttendanceGrid from "./_components/AttendanceGrid";
 
 function Attendance() {
   // states for months and grades
   const [selectMonth, setSelectMonth] = useState();
   const [selectGrade, setSelectGrade] = useState();
+  const [attendanceListData, setAttendanceListData] = useState(); //for attendance list fetch
 
   // call the searchHandler function
   const searchHandler = () => {
-
     const formattedMonth = moment(selectMonth).format("MM/YYYY");
 
     GlobalApi.getAttendanceList(selectGrade, formattedMonth)
       .then((resp) => {
-        console.log("API Response:", resp.data);
+        setAttendanceListData(resp.data);
       })
       .catch((error) => {
         console.error("API Call Error:", error);
@@ -47,6 +48,9 @@ function Attendance() {
           />
         </div>
         <Button onClick={() => searchHandler()}>Search</Button>
+      </div>
+      <div>
+        <AttendanceGrid attendanceListData={attendanceListData} />
       </div>
     </div>
   );
