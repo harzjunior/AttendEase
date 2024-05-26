@@ -72,11 +72,11 @@ function StudentTableList({ students, refreshData }) {
 
   // Column ag-grid Definitions: Defines the columns to be displayed.
   const [colDefs, setColDefs] = useState([
-    { field: "id", filter: true },
+    { field: "id", width: 105, filter: true },
     { field: "fullName", filter: true },
-    { field: "address", filter: true },
+    { field: "address", width: 300, filter: true },
     { field: "phone", filter: true },
-    { field: "action", cellRenderer: CustomBtn }, // custom column for actions
+    { field: "action", width: 90, cellRenderer: CustomBtn }, // custom column for actions
   ]);
 
   // Row ag-grid Data: The data to be displayed.

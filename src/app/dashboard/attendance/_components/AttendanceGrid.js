@@ -4,15 +4,28 @@ import { useEffect, useState } from "react";
 import { AgGridReact } from "ag-grid-react"; // React Data Grid Component
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the grid
+import moment from "moment/moment";
 
-//got attendanceListData props from Attendance component
-function AttendanceGrid({ attendanceListData }) {
+//got attendanceListData and selectMonth props from Attendance component
+function AttendanceGrid({ attendanceListData, selectMonth }) {
   // Row ag-grid Data: The data to be displayed.
   const [rowData, setRowData] = useState([]);
   const [colDefs, setColDefs] = useState([
-    { field: "studentId" },
+    { field: "studentId", width: 105 },
     { field: "fullName" },
   ]);
+
+  // calculating number of days, we can get that from Attendance Component
+  const daysOfTheMonth = (year, month) => new Date(year, month, 0).getDate();
+  const numberOfDays = daysOfTheMonth(
+    moment(selectMonth).format("yyyy"),
+    moment(selectMonth).format("MM")
+  );
+  //get all the days in array form (the size of the month { length: numberOfDays } and counting from init to i + 1, because array starts from 0 (_, i) => i + 1 )
+  const daysInArray = Array.from({ length: numberOfDays }, (_, i) => i + 1);
+
+  console.log(numberOfDays, typeof numberOfDays);
+  console.log(daysInArray);
 
   // only refresh the page when there is attendanceListData data
   useEffect(() => {
@@ -20,6 +33,17 @@ function AttendanceGrid({ attendanceListData }) {
     if (attendanceListData?.result) {
       const uniqueRecords = getUniqueRecords(attendanceListData.result);
       setRowData(uniqueRecords);
+
+      daysInArray.forEach((date) => {
+        setColDefs((prevData) => [
+          ...prevData,
+          {
+            field: date.toString(),
+            width: 50,
+            editable: true,
+          },
+        ]);
+      });
     }
   }, [attendanceListData]);
 

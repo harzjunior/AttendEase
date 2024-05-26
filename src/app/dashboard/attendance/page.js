@@ -7,12 +7,14 @@ import { Button } from "@/components/ui/button";
 import moment from "moment/moment";
 import { useState } from "react";
 import AttendanceGrid from "./_components/AttendanceGrid";
+import { LoaderIcon } from "lucide-react";
 
 function Attendance() {
   // states for months and grades
   const [selectMonth, setSelectMonth] = useState();
   const [selectGrade, setSelectGrade] = useState();
   const [attendanceListData, setAttendanceListData] = useState(); //for attendance list fetch
+  const [loading, setLoading] = useState(false);
 
   // call the searchHandler function
   const searchHandler = () => {
@@ -20,6 +22,8 @@ function Attendance() {
 
     GlobalApi.getAttendanceList(selectGrade, formattedMonth)
       .then((resp) => {
+        setLoading(false);
+        console.log(resp);
         setAttendanceListData(resp.data);
       })
       .catch((error) => {
@@ -47,10 +51,18 @@ function Attendance() {
             }}
           />
         </div>
-        <Button onClick={() => searchHandler()}>Search</Button>
+        <Button
+          onClick={() => searchHandler()}
+          disable={loading ? loading.toString() : undefined}
+        >
+          {loading ? <LoaderIcon className="animate-spin" /> : "Search"}
+        </Button>
       </div>
       <div>
-        <AttendanceGrid attendanceListData={attendanceListData} />
+        <AttendanceGrid
+          attendanceListData={attendanceListData}
+          selectMonth={selectMonth}
+        />
       </div>
     </div>
   );
