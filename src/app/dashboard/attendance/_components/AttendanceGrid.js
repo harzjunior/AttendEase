@@ -24,9 +24,6 @@ function AttendanceGrid({ attendanceListData, selectMonth }) {
   //get all the days in array form (the size of the month { length: numberOfDays } and counting from init to i + 1, because array starts from 0 (_, i) => i + 1 )
   const daysInArray = Array.from({ length: numberOfDays }, (_, i) => i + 1);
 
-  console.log(numberOfDays, typeof numberOfDays);
-  console.log(daysInArray);
-
   // only refresh the page when there is attendanceListData data
   useEffect(() => {
     // Ensure attendanceListData is valid, the API response indicates success, and result is an array
@@ -43,6 +40,10 @@ function AttendanceGrid({ attendanceListData, selectMonth }) {
             editable: true,
           },
         ]);
+        //checkbox using the uniqueRecords variable
+        uniqueRecords.forEach((obj) => {
+          obj[date] = isPresent(obj.studentId, date); //passing studentId of attendanceListData to compare with the isPresent function data date from daysInArray
+        });
       });
     }
   }, [attendanceListData]);
@@ -60,6 +61,16 @@ function AttendanceGrid({ attendanceListData, selectMonth }) {
     });
 
     return uniqueRecord;
+  };
+
+  //using the present column field in attendance table
+  const isPresent = (studentId, day) => {
+    if (attendanceListData?.result) {
+      const result = attendanceListData.result.find(
+        (item) => item.day == day && item.studentId == studentId
+      );
+      return result ? true : false;
+    }
   };
 
   return (
