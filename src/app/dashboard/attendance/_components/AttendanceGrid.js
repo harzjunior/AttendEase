@@ -31,20 +31,39 @@ function AttendanceGrid({ attendanceListData, selectMonth }) {
       const uniqueRecords = getUniqueRecords(attendanceListData.result);
       setRowData(uniqueRecords);
 
-      daysInArray.forEach((date) => {
-        setColDefs((prevData) => [
-          ...prevData,
-          {
-            field: date.toString(),
-            width: 50,
-            editable: true,
-          },
-        ]);
-        //checkbox using the uniqueRecords variable
-        uniqueRecords.forEach((obj) => {
+      const newColDefs = [
+        { field: "studentId", width: 105 },
+        { field: "fullName" },
+        ...daysInArray.map((date) => ({
+          field: date.toString(),
+          width: 50,
+          editable: true,
+        })),
+      ];
+
+      setColDefs(newColDefs);
+
+      uniqueRecords.forEach((obj) => {
+        daysInArray.forEach((date) => {
           obj[date] = isPresent(obj.studentId, date); //passing studentId of attendanceListData to compare with the isPresent function data date from daysInArray
         });
       });
+
+
+    //   daysInArray.forEach((date) => {
+    //     setColDefs((prevData) => [
+    //       ...prevData,
+    //       {
+    //         field: date.toString(),
+    //         width: 50,
+    //         editable: true,
+    //       },
+    //     ]);
+    //     //checkbox using the uniqueRecords variable
+    //     uniqueRecords.forEach((obj) => {
+    //       obj[date] = isPresent(obj.studentId, date); //passing studentId of attendanceListData to compare with the isPresent function data date from daysInArray
+    //     });
+    //   });
     }
   }, [attendanceListData]);
 
