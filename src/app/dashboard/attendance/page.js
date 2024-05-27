@@ -23,7 +23,6 @@ function Attendance() {
     GlobalApi.getAttendanceList(selectGrade, formattedMonth)
       .then((resp) => {
         setLoading(false);
-        console.log(resp);
         setAttendanceListData(resp.data);
       })
       .catch((error) => {

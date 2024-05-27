@@ -25,9 +25,11 @@ export async function GET(req) {
         attendanceId: ATTENDANCE.id,
       })
       .from(STUDENTS)
-      .leftJoin(ATTENDANCE, eq(STUDENTS.id, ATTENDANCE.studentId))
-      .where(eq(STUDENTS.grade, grade))
-      .where(or(eq(ATTENDANCE.date, month), isNull(eq(ATTENDANCE.date)))); //also include students who do not have any attendance records for the specified month
+      .leftJoin(
+        ATTENDANCE,
+        and(eq(STUDENTS.id, ATTENDANCE.studentId), eq(ATTENDANCE.date, month))
+      )
+      .where(eq(STUDENTS.grade, grade));
 
     return NextResponse.json({ success: true, result });
   } catch (error) {
@@ -65,13 +67,13 @@ export async function DELETE(req) {
   try {
     const result = await db
       .delete(ATTENDANCE)
-      .where(and(
-        
-        eq(ATTENDANCE.studentId, studentId),
-        eq(ATTENDANCE.day, day),
-        eq(ATTENDANCE.date, date)
-      ))
-      
+      .where(
+        and(
+          eq(ATTENDANCE.studentId, studentId),
+          eq(ATTENDANCE.day, day),
+          eq(ATTENDANCE.date, date)
+        )
+      );
 
     return NextResponse.json({ success: true, result });
   } catch (error) {

@@ -108,6 +108,10 @@ function AttendanceGrid({ attendanceListData, selectMonth }) {
     }
   };
 
+  const pagination = true;
+  const paginationPageSize = 10;
+  const paginationPageSizeSelector = [10, 25, 50];
+
   return (
     <div
       className="ag-theme-quartz" // applying the grid theme
@@ -117,6 +121,9 @@ function AttendanceGrid({ attendanceListData, selectMonth }) {
         rowData={rowData}
         columnDefs={colDefs}
         onCellValueChanged={handleCellValueChanged}
+        pagination={pagination} //pagination with 10 records
+        paginationPageSize={paginationPageSize}
+        paginationPageSizeSelector={paginationPageSizeSelector}
       />
     </div>
   );
