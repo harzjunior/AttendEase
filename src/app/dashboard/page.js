@@ -30,7 +30,7 @@ function Dashboard() {
   const { setTheme } = useTheme();
 
   useEffect(() => {
-    setTheme("system");
+    setTheme("light");
     studentAttendanceHandler();
   }, [selectMonth, selectGrade]);
 
