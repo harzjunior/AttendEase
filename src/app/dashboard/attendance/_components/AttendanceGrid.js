@@ -13,8 +13,8 @@ function AttendanceGrid({ attendanceListData, selectMonth }) {
   // Row ag-grid Data: The data to be displayed.
   const [rowData, setRowData] = useState([]);
   const [colDefs, setColDefs] = useState([
-    { field: "studentId", width: 105 },
-    { field: "fullName" },
+    { field: "studentId", width: 110, filter: true },
+    { field: "fullName", filter: true },
   ]);
 
   // calculating number of days, we can get that from Attendance Component
@@ -34,8 +34,8 @@ function AttendanceGrid({ attendanceListData, selectMonth }) {
       setRowData(uniqueRecords);
 
       const newColDefs = [
-        { field: "studentId", width: 105 },
-        { field: "fullName" },
+        { field: "studentId", width: 105, filter: true },
+        { field: "fullName", filter: true },
         ...daysInArray.map((date) => ({
           field: date.toString(),
           width: 50,
