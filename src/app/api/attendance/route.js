@@ -1,7 +1,7 @@
 const { NextResponse } = require("next/server");
 import { db } from "@/utils";
 import { ATTENDANCE, STUDENTS } from "@/utils/schema";
-import { and, eq, isNull, or } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 
 // we will use this API in our GlobalApi.js
 

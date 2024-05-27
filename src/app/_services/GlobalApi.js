@@ -32,6 +32,13 @@ const deleteAttendance = (studentId, day, date) => {
   );
 };
 
+// ==========================================Dashboard============================================
+//gets date and grade for records for stats from db
+
+const getTotalPresentCountByDay = (date, grade) => {
+  return axios.get(`/api/dashboard?date=${date}&grade=${grade}`);
+};
+
 export default {
   getAllGrades,
   createNewStudent,
@@ -40,4 +47,5 @@ export default {
   getAttendanceList,
   createAttendance,
   deleteAttendance,
+  getTotalPresentCountByDay,
 };

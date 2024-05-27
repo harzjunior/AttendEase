@@ -13,13 +13,23 @@ function Dashboard() {
   const [selectGrade, setSelectGrade] = useState();
   const [attendanceList, setAttendanceList] = useState(0);
 
+  console.log(selectGrade);
+
+  const { setTheme } = useTheme();
+
+  useEffect(() => {
+    setTheme("light");
+    if (selectMonth && selectGrade) {
+      studentAttendanceHandler();
+      getTotalPresentCount();
+    }
+  }, [selectMonth, selectGrade]);
+
   // call the searchHandler function
   const studentAttendanceHandler = () => {
     const formattedMonth = moment(selectMonth).format("MM/YYYY");
-
     GlobalApi.getAttendanceList(selectGrade, formattedMonth)
       .then((resp) => {
-        console.log(resp.data);
         setAttendanceList(resp.data);
       })
       .catch((error) => {
@@ -27,12 +37,18 @@ function Dashboard() {
       });
   };
 
-  const { setTheme } = useTheme();
-
-  useEffect(() => {
-    setTheme("light");
-    studentAttendanceHandler();
-  }, [selectMonth, selectGrade]);
+  const getTotalPresentCount = () => {
+    GlobalApi.getTotalPresentCountByDay(
+      moment(selectMonth).format("MM/YYYY"),
+      selectGrade
+    )
+      .then((resp) => {
+        console.log(resp.data);
+      })
+      .catch((error) => {
+        console.error("API Call Error:", error);
+      });
+  };
 
   return (
     <div className="p-10">
