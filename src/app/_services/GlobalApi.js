@@ -22,10 +22,22 @@ const getAttendanceList = (grade, month) => {
   return axios.get(`/api/attendance?grade=${grade}&month=${month}`);
 };
 
+//create student and used in submit form
+const createAttendance = (data) => axios.post("/api/attendance", data); //post method and pass in the data param
+
+//deletes an attendance record from db by studentId, day, and date
+const deleteAttendance = (studentId, day, date) => {
+  return axios.delete(
+    `/api/attendance?studentId=${studentId}&day=${day}&date=${date}`
+  );
+};
+
 export default {
   getAllGrades,
   createNewStudent,
   getAllStudents,
   deleteStudentRecord,
   getAttendanceList,
+  createAttendance,
+  deleteAttendance,
 };

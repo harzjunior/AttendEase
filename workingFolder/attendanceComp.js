@@ -5,8 +5,6 @@ import { AgGridReact } from "ag-grid-react"; // React Data Grid Component
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the grid
 import moment from "moment/moment";
-import GlobalApi from "@/app/_services/GlobalApi";
-import { toast } from "sonner";
 
 //got attendanceListData and selectMonth props from Attendance component
 function AttendanceGrid({ attendanceListData, selectMonth }) {
@@ -50,6 +48,21 @@ function AttendanceGrid({ attendanceListData, selectMonth }) {
           obj[date] = isPresent(obj.studentId, date); //passing studentId of attendanceListData to compare with the isPresent function data date from daysInArray
         });
       });
+
+      //   daysInArray.forEach((date) => {
+      //     setColDefs((prevData) => [
+      //       ...prevData,
+      //       {
+      //         field: date.toString(),
+      //         width: 50,
+      //         editable: true,
+      //       },
+      //     ]);
+      //     //checkbox using the uniqueRecords variable
+      //     uniqueRecords.forEach((obj) => {
+      //       obj[date] = isPresent(obj.studentId, date); //passing studentId of attendanceListData to compare with the isPresent function data date from daysInArray
+      //     });
+      //   });
     }
   }, [attendanceListData]);
 
@@ -78,46 +91,12 @@ function AttendanceGrid({ attendanceListData, selectMonth }) {
     }
   };
 
-  // Handle Attendance Updates
-  const handleCellValueChanged = async (event) => {
-    const { data, colDef, newValue } = event;
-    const day = colDef.field;
-    const studentId = data.studentId;
-    const present = newValue;
-
-    try {
-      const date = moment(selectMonth).format("MM/YYYY");
-
-      if (present) {
-        GlobalApi.createAttendance({
-          studentId,
-          day,
-          date,
-          present,
-        }).then((resp) => {
-          toast.success(`Student number: ${studentId} Present`);
-        });
-      } else {
-        GlobalApi.deleteAttendance(studentId, day, date).then((resp) => {
-          toast.error(`Marked student number: ${studentId} as absent`);
-        });
-      }
-    } catch (error) {
-      toast.error("Failed to update attendance record");
-      console.error("Failed to update attendance record", error);
-    }
-  };
-
   return (
     <div
       className="ag-theme-quartz" // applying the grid theme
       style={{ height: 500 }} // the grid will fill the size of the parent container
     >
-      <AgGridReact
-        rowData={rowData}
-        columnDefs={colDefs}
-        onCellValueChanged={handleCellValueChanged}
-      />
+      <AgGridReact rowData={rowData} columnDefs={colDefs} />
     </div>
   );
 }

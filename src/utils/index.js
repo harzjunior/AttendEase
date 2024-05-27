@@ -21,7 +21,6 @@ async function createConnection() {
 const connection = await createConnection();
 export const db = drizzle(connection);
 
-
 // require("dotenv").config();
 // const mysql = require("mysql2/promise");
 // const { drizzle } = require("drizzle-orm/mysql2");
