@@ -7,6 +7,7 @@ import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied
 import moment from "moment/moment";
 import GlobalApi from "@/app/_services/GlobalApi";
 import { toast } from "sonner";
+import { getUniqueRecords } from "@/app/_services/services";
 
 //got attendanceListData and selectMonth props from Attendance component
 function AttendanceGrid({ attendanceListData, selectMonth }) {
@@ -30,7 +31,7 @@ function AttendanceGrid({ attendanceListData, selectMonth }) {
   useEffect(() => {
     // Ensure attendanceListData is valid, the API response indicates success, and result is an array
     if (attendanceListData?.result) {
-      const uniqueRecords = getUniqueRecords(attendanceListData.result);
+      const uniqueRecords = getUniqueRecords(attendanceListData.result); // get unique user Record
       setRowData(uniqueRecords);
 
       const newColDefs = [
@@ -53,20 +54,6 @@ function AttendanceGrid({ attendanceListData, selectMonth }) {
     }
   }, [attendanceListData]);
 
-  // get unique user Record
-  const getUniqueRecords = (attendanceListData) => {
-    const uniqueRecord = [];
-    const existingUser = new Set();
-
-    attendanceListData.forEach((attendance) => {
-      if (!existingUser.has(attendance.studentId)) {
-        existingUser.add(attendance.studentId);
-        uniqueRecord.push(attendance);
-      }
-    });
-
-    return uniqueRecord;
-  };
 
   //using the present column field in attendance table
   const isPresent = (studentId, day) => {

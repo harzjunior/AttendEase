@@ -29,7 +29,7 @@ function StudentTableList({ students, refreshData }) {
     GlobalApi.deleteStudentRecord(id)
       .then((resp) => {
         if (resp.data && resp.data.success) {
-          toast.success("Record Successfully Deleted");
+          toast.warning("Record Successfully Deleted");
           refreshData(); // call this function by props from Student component
         }
       })
