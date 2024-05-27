@@ -7,12 +7,15 @@ export async function middleware(request) {
 
   if (!(await isAuthenticated())) {
     return NextResponse.redirect(
-      new URL("/api/auth/login?post_login_redirect_url=/dashboard", request.url)
+      new URL(
+        "/api/auth/login?post_login_redirect_url=/dashboards",
+        request.url
+      )
     );
   }
 }
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/about/:path*", "/dashboard/:path*"], //fix me later back
+  matcher: ["/about/:path*", "/dashboards/:path*"], //fix me later back
 };

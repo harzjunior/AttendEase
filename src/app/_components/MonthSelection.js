@@ -15,7 +15,7 @@ import { Calendar } from "@/components/ui/calendar";
 // selectedMonth prop used in Attendance component
 function MonthSelection({ selectedMonth }) {
   const today = new Date();
-  const nextMonth = addMonths(new Date(), 0); //current new date and month (0). also used moment to format date to own specifics
+  const nextMonth = addMonths(today, 0); //current new date and month (0). also used moment to format date to own specifics
   const [month, setMonth] = useState(nextMonth);
 
   return (
