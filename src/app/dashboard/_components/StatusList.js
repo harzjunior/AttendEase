@@ -9,7 +9,7 @@ import { useAttendance } from "@/context/AttendanceContext";
 
 function StatusList() {
   // Update page to use context api.
-  const { attendanceListData, selectMonth } = useAttendance();
+  const { attendanceListData } = useAttendance();
   const [totalStudent, setTotalStudent] = useState(0);
   const [percentagePresent, setPercentagePresent] = useState(0);
   const [percentageAbsent, setPercentageAbsent] = useState(0);
@@ -17,7 +17,7 @@ function StatusList() {
   useEffect(() => {
     if (attendanceListData?.result) {
       const uniqueStudentRecords = getUniqueRecords(attendanceListData.result); // get unique user Record (number of box checked)
-      const numberOfDays = moment(selectMonth).daysInMonth(); // Number of days in the selected month
+      const numberOfDays = moment().format("D"); // Number of days in the selected month
 
       // attendanceListData.result.length, size/length of box/boxes checked
       // uniqueStudentRecords.length, number of student in current grade
@@ -28,6 +28,7 @@ function StatusList() {
       const totalPresent = attendanceListData.result.filter(
         (attendance) => attendance.present
       ).length;
+
       const totalAbsent = totalStudents * numberOfDays - totalPresent;
 
       const presentPercent =

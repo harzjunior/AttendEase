@@ -28,17 +28,16 @@ const BarChartCard = () => {
   }, [attendanceListData, totalPercentageData]);
 
   const formatCountAttendanceList = () => {
-    const uniqueStudentRecords = getUniqueRecords(attendanceListData?.result); // get unique user Record (number of box checked)
-    const totalStudents = uniqueStudentRecords?.length;
+    const totalStudents = getUniqueRecords(attendanceListData?.result); // get unique user Record (number of box checked)
 
     const result = totalPercentageData?.result.map((item) => ({
       day: item.day,
       presentCount: item.presentCount,
-      absentCount: Number(totalStudents) - Number(item.presentCount),
+      absentCount: Number(totalStudents?.length) - Number(item.presentCount),
     }));
 
     setData(result);
-    console.log(result);
+    // console.log(result);
   };
 
   return (

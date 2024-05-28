@@ -39,7 +39,7 @@ function StudentTableList({ students, refreshData }) {
       });
   };
 
-  // custom button for the column grid and other component from shadcn/ui
+  // custom button for the column grid and other component from shadCn/ui
   const CustomBtn = (props) => {
     return (
       <AlertDialog>
