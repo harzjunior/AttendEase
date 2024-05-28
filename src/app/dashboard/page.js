@@ -9,6 +9,7 @@ import moment from "moment/moment";
 import StatusList from "./_components/StatusList";
 import { useAttendance } from "@/context/AttendanceContext";
 import BarChartCard from "./_components/BarChartCard";
+import PieChartCard from "./_components/PieChartCard";
 
 function Dashboard() {
   // Update page to use context api.
@@ -80,9 +81,12 @@ function Dashboard() {
       <div>
         <StatusList />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <div className="md:col-span-2">
           <BarChartCard />
+        </div>
+        <div>
+          <PieChartCard />
         </div>
       </div>
     </div>
