@@ -10,6 +10,7 @@ export const AttendanceProvider = ({ children }) => {
   const [selectMonth, setSelectMonth] = useState();
   const [selectGrade, setSelectGrade] = useState();
   const [attendanceListData, setAttendanceListData] = useState();
+  const [totalPercentageData, setTotalPercentageData] = useState();
 
   return (
     <AttendanceContext.Provider
@@ -20,6 +21,8 @@ export const AttendanceProvider = ({ children }) => {
         setSelectGrade,
         attendanceListData,
         setAttendanceListData,
+        totalPercentageData,
+        setTotalPercentageData,
       }}
     >
       {children}

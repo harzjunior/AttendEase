@@ -37,11 +37,6 @@ function StatusList() {
 
       setPercentagePresent(presentPercent);
       setPercentageAbsent(absentPercent);
-
-      console.log(
-        attendanceListData.result.length,
-        uniqueStudentRecords.length
-      );
     }
   }, [attendanceListData]);
 

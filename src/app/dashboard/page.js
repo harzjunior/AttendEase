@@ -8,6 +8,7 @@ import GlobalApi from "../_services/GlobalApi";
 import moment from "moment/moment";
 import StatusList from "./_components/StatusList";
 import { useAttendance } from "@/context/AttendanceContext";
+import BarChartCard from "./_components/BarChartCard";
 
 function Dashboard() {
   // Update page to use context api.
@@ -17,9 +18,8 @@ function Dashboard() {
     selectGrade,
     setSelectGrade,
     setAttendanceListData,
+    setTotalPercentageData,
   } = useAttendance();
-  // const [attendanceList, setAttendanceList] = useState(0);
-  const [totalParcentageData, setTotalParcentageData] = useState([]);
 
   const { setTheme } = useTheme();
 
@@ -49,8 +49,7 @@ function Dashboard() {
       selectGrade
     )
       .then((resp) => {
-        console.log(resp.data);
-        setTotalParcentageData(resp.data);
+        setTotalPercentageData(resp.data);
       })
       .catch((error) => {
         console.error("API Call Error:", error);
@@ -80,6 +79,11 @@ function Dashboard() {
       </div>
       <div>
         <StatusList />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3">
+        <div className="md:col-span-2">
+          <BarChartCard />
+        </div>
       </div>
     </div>
   );
