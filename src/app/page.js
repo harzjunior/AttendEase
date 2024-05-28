@@ -7,5 +7,5 @@ export default function Home() {
   useEffect(() => {
     redirect("/api/auth/login?post_login_redirect_url=/dashboard");
   }, []);
-  return <main className="">Home</main>;
+  return <main className=""></main>;
 }

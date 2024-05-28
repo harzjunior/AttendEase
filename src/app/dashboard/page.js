@@ -1,7 +1,7 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import MonthSelection from "../_components/MonthSelection";
 import GradeSelection from "../_components/GradeSelection";
 import GlobalApi from "../_services/GlobalApi";

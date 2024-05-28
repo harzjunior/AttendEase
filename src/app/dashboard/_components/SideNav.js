@@ -39,7 +39,17 @@ function SideNav() {
 
   return (
     <div className="border shadow-md h-screen p-5">
-      <Image src={"/logo.svg"} height={180} width={50} alt="logo" priority />
+      <div className="flex justify-center bg-slate-100 shadow-md">
+        <Link href="/">
+          <Image
+            src={"/logo.svg"}
+            height={200}
+            width={75}
+            alt="logo"
+            priority
+          />
+        </Link>
+      </div>
       <hr className="my-5"></hr>
 
       {menuList.map((menu, index) => (
