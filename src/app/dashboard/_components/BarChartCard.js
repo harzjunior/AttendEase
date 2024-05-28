@@ -9,14 +9,14 @@ import {
   BarChart,
   CartesianGrid,
   Legend,
+  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
 
 const BarChartCard = () => {
-  const { selectMonth, attendanceListData, totalPercentageData } =
-    useAttendance();
+  const { attendanceListData, totalPercentageData } = useAttendance();
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const BarChartCard = () => {
     const totalStudents = getUniqueRecords(attendanceListData?.result); // get unique user Record (number of box checked)
 
     const result = totalPercentageData?.result.map((item) => ({
-      day: item.day,
+      day: "Day " + item.day,
       presentCount: item.presentCount,
       absentCount: Number(totalStudents?.length) - Number(item.presentCount),
     }));
@@ -41,16 +41,19 @@ const BarChartCard = () => {
   };
 
   return (
-    <div>
-      <BarChart width={730} height={250} data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="day" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="presentCount" fill="#8884d8" />
-        <Bar dataKey="absentCount" fill="#82ca9d" />
-      </BarChart>
+    <div className="border rounded-lg shadow-sm p-5">
+      <h2 className="my-2 text-lg font-bold">Attendance</h2>
+      <ResponsiveContainer width={"100%"} height={300}>
+        <BarChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="day" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="presentCount" name="Total Present" fill="#8884d8" />
+          <Bar dataKey="absentCount" name="Total Absent" fill="#82ca9d" />
+        </BarChart>
+      </ResponsiveContainer>
     </div>
   );
 };

@@ -26,8 +26,8 @@ function Dashboard() {
   useEffect(() => {
     setTheme("light");
     if (selectMonth && selectGrade) {
-      studentAttendanceHandler();
       getTotalPresentCount();
+      studentAttendanceHandler();
     }
   }, [selectMonth, selectGrade]);
 
