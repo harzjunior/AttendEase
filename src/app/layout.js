@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/common/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
+import { AttendanceProvider } from "@/context/AttendanceContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +23,7 @@ export default function RootLayout({ children }) {
         >
           {/* sonner for used in AddNewStudent. a confirmation of successful form submit */}
           <Toaster richColors />
-          {children}
+          <AttendanceProvider>{children}</AttendanceProvider>
         </ThemeProvider>
       </body>
     </html>

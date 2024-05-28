@@ -8,10 +8,11 @@ import moment from "moment/moment";
 import GlobalApi from "@/app/_services/GlobalApi";
 import { toast } from "sonner";
 import { getUniqueRecords } from "@/app/_services/services";
+import { useAttendance } from "@/context/AttendanceContext";
 
-//got attendanceListData and selectMonth props from Attendance component
-function AttendanceGrid({ attendanceListData, selectMonth }) {
-  // Row ag-grid Data: The data to be displayed.
+function AttendanceGrid() {
+  // Update page to use context api.
+  const { attendanceListData, selectMonth } = useAttendance();
   const [rowData, setRowData] = useState([]);
   const [colDefs, setColDefs] = useState([
     { field: "studentId", width: 110, filter: true },
@@ -53,7 +54,6 @@ function AttendanceGrid({ attendanceListData, selectMonth }) {
       });
     }
   }, [attendanceListData]);
-
 
   //using the present column field in attendance table
   const isPresent = (studentId, day) => {

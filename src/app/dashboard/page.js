@@ -7,13 +7,19 @@ import GradeSelection from "../_components/GradeSelection";
 import GlobalApi from "../_services/GlobalApi";
 import moment from "moment/moment";
 import StatusList from "./_components/StatusList";
+import { useAttendance } from "@/context/AttendanceContext";
 
 function Dashboard() {
-  const [selectMonth, setSelectMonth] = useState();
-  const [selectGrade, setSelectGrade] = useState();
-  const [attendanceList, setAttendanceList] = useState(0);
-
-  console.log(selectGrade);
+  // Update page to use context api.
+  const {
+    selectMonth,
+    setSelectMonth,
+    selectGrade,
+    setSelectGrade,
+    setAttendanceListData,
+  } = useAttendance();
+  // const [attendanceList, setAttendanceList] = useState(0);
+  const [totalParcentageData, setTotalParcentageData] = useState([]);
 
   const { setTheme } = useTheme();
 
@@ -30,7 +36,7 @@ function Dashboard() {
     const formattedMonth = moment(selectMonth).format("MM/YYYY");
     GlobalApi.getAttendanceList(selectGrade, formattedMonth)
       .then((resp) => {
-        setAttendanceList(resp.data);
+        setAttendanceListData(resp.data);
       })
       .catch((error) => {
         console.error("API Call Error:", error);
@@ -44,6 +50,7 @@ function Dashboard() {
     )
       .then((resp) => {
         console.log(resp.data);
+        setTotalParcentageData(resp.data);
       })
       .catch((error) => {
         console.error("API Call Error:", error);
@@ -53,7 +60,14 @@ function Dashboard() {
   return (
     <div className="p-10">
       <div className="flex justify-between items-center gap-4">
-        <h2 className="font-bold text-2xl">Attendance</h2>
+        <div className="flex gap-3 items-center ">
+          <h2 className="font-bold text-2xl">Attendance:</h2>
+          <code className="mt-1 text-xs">
+            Month of:
+            <em> {moment(selectMonth).format("MMMM")}</em> Grade:
+            <em> {selectGrade}</em>
+          </code>
+        </div>
         <div className="flex items-center gap-4">
           <MonthSelection selectedMonth={setSelectMonth} />
 
@@ -65,7 +79,7 @@ function Dashboard() {
         </div>
       </div>
       <div>
-        <StatusList attendanceListData={attendanceList} />
+        <StatusList />
       </div>
     </div>
   );
