@@ -7,8 +7,10 @@ async function createConnection() {
     const connection = await mysql.createConnection({
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
+      password: process.env.DB_PASSWORD,
+      port: process.env.DB_PORT,
+      connectTimeout: 10000, // 10 seconds
     });
     console.log("Database connected successfully");
     return connection;
@@ -20,25 +22,3 @@ async function createConnection() {
 
 const connection = await createConnection();
 export const db = drizzle(connection);
-
-// require("dotenv").config();
-// const mysql = require("mysql2/promise");
-// const { drizzle } = require("drizzle-orm/mysql2");
-
-// const createConnection = async () => {
-//   try {
-//     const connection = await mysql.createConnection({
-//       host: process.env.DB_HOST,
-//       user: process.env.DB_USER,
-//       password: process.env.DB_PASSWORD,
-//       database: process.env.DB_DATABASE,
-//     });
-//     console.log("Database connected successfully");
-//     return drizzle(connection);
-//   } catch (error) {
-//     console.error("Error connecting to the database:", error);
-//     throw error;
-//   }
-// };
-
-// module.exports = { createConnection };
