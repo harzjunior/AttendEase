@@ -308,4 +308,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ### Author Information
 
-This project was developed by Haruna Bah Jibril (harzkane@gmail.com) as a solo project.
+This project was developed by Haruna Bah Jibril (harzkane@gmail.com) as a solo project..
