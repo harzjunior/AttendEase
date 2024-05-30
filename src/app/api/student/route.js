@@ -13,7 +13,7 @@ export async function POST(req, res) {
 
   const result = await db.insert(STUDENTS).values({
     fullName: data?.fullName,
-    grade: data?.grade,
+    course: data?.course,
     phone: data?.phone,
     address: data?.address,
   });

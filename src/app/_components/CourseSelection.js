@@ -2,9 +2,9 @@ import { useForm } from "react-hook-form";
 import GlobalApi from "../_services/GlobalApi";
 import { useEffect, useState } from "react";
 
-// selectedGrade used in Attendance component
-function GradeSelection({ selectedGrade }) {
-  const [grades, setGrades] = useState([]);
+// selectedCourse used in Attendance component
+function CourseSelection({ selectedCourse }) {
+  const [courses, setCourses] = useState([]);
 
   useEffect(() => {
     getAllData();
@@ -13,9 +13,9 @@ function GradeSelection({ selectedGrade }) {
   //let's call our API
   const getAllData = async () => {
     try {
-      const gradeResp = await GlobalApi.getAllGrades();
+      const courseResp = await GlobalApi.getAllCourses();
 
-      setGrades(gradeResp.data);
+      setCourses(courseResp.data);
     } catch (error) {
       console.error(error);
     }
@@ -25,11 +25,11 @@ function GradeSelection({ selectedGrade }) {
     <div>
       <select
         className="p-2 border rounded-lg"
-        onChange={(e) => selectedGrade(e.target.value)}
+        onChange={(e) => selectedCourse(e.target.value)}
       >
-        {grades.map((item) => (
-          <option key={item.id} value={item.grade}>
-            {item.grade}
+        {courses.map((item) => (
+          <option key={item.id} value={item.course}>
+            {item.course}
           </option>
         ))}
       </select>
@@ -37,4 +37,4 @@ function GradeSelection({ selectedGrade }) {
   );
 }
 
-export default GradeSelection;
+export default CourseSelection;
