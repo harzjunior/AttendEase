@@ -25,6 +25,7 @@ import Image from "next/image";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/common/ModeToggle";
+import { useUser } from "@/context/UserContext";
 
 function Header() {
   const menuList = [
@@ -56,6 +57,7 @@ function Header() {
 
   //to keep track of nav elements/items active position
   const path = usePathname();
+  const { user } = useUser();
 
   return (
     <div
@@ -112,13 +114,23 @@ function Header() {
               size="icon"
               className="overflow-hidden rounded-full"
             >
-              <Image
-                src={"/images/Kyrian.png"}
-                width={36}
-                height={36}
-                alt="Avatar"
-                className="overflow-hidden rounded-full"
-              />
+              {user?.picture ? (
+                <Image
+                  src={user.picture}
+                  width={36}
+                  height={36}
+                  alt="Avatar"
+                  className="overflow-hidden rounded-full"
+                />
+              ) : (
+                <Image
+                  src={"/images/Kyrian.png"}
+                  width={36}
+                  height={36}
+                  alt="Avatar"
+                  className="overflow-hidden rounded-full"
+                />
+              )}
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">

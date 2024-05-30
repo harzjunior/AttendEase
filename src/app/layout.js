@@ -3,6 +3,7 @@ import { ThemeProvider } from "@/common/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import { AttendanceProvider } from "@/context/AttendanceContext";
+import { UserProvider } from "@/app/dashboard/_components/UserContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +24,9 @@ export default function RootLayout({ children }) {
         >
           {/* sonner for used in AddNewStudent. a confirmation of successful form submit */}
           <Toaster richColors />
-          <AttendanceProvider>{children}</AttendanceProvider>
+          <AttendanceProvider>
+            <UserProvider>{children}</UserProvider>
+          </AttendanceProvider>
         </ThemeProvider>
       </body>
     </html>

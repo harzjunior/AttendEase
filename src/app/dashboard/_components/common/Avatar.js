@@ -1,11 +1,18 @@
 "use client";
 
+import { useUser } from "@/context/UserContext";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 
 function Avatar({ avClass, bool }) {
   const { user } = useKindeBrowserClient();
+  const { setUser } = useUser();
+
+  useEffect(() => {
+    setUser(user);
+  }, [user, setUser]);
 
   return (
     <div className={`${avClass}`}>
