@@ -3,7 +3,7 @@ import { ThemeProvider } from "@/common/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import { AttendanceProvider } from "@/context/AttendanceContext";
-import { UserProvider } from "@/app/dashboard/_components/UserContext";
+import { UserProvider } from "@/context/UserContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
