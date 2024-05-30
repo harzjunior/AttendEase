@@ -20,7 +20,7 @@ function StatusList() {
       const numberOfDays = moment().format("D"); // Number of days in the selected month
 
       // attendanceListData.result.length, size/length of box/boxes checked
-      // uniqueStudentRecords.length, number of student in current grade
+      // uniqueStudentRecords.length, number of student in current Course
 
       const totalStudents = uniqueStudentRecords.length;
       setTotalStudent(totalStudents);

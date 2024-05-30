@@ -1,6 +1,6 @@
 "use client";
 
-import GradeSelection from "@/app/_components/GradeSelection";
+import CourseSelection from "@/app/_components/CourseSelection";
 import MonthSelection from "@/app/_components/MonthSelection";
 import GlobalApi from "@/app/_services/GlobalApi";
 import { Button } from "@/components/ui/button";
@@ -15,8 +15,8 @@ function Attendance() {
   const {
     selectMonth,
     setSelectMonth,
-    selectGrade,
-    setSelectGrade,
+    selectCourse,
+    setSelectCourse,
     attendanceListData,
     setAttendanceListData,
   } = useAttendance();
@@ -26,7 +26,7 @@ function Attendance() {
   const searchHandler = () => {
     const formattedMonth = moment(selectMonth).format("MM/YYYY");
 
-    GlobalApi.getAttendanceList(selectGrade, formattedMonth)
+    GlobalApi.getAttendanceList(selectCourse, formattedMonth)
       .then((resp) => {
         setLoading(false);
         setAttendanceListData(resp.data);
@@ -49,10 +49,10 @@ function Attendance() {
           />
         </div>
         <div className="flex items-center gap-2">
-          <label>Select Grade:</label>
-          <GradeSelection
-            selectedGrade={(value) => {
-              setSelectGrade(value);
+          <label>Select Course:</label>
+          <CourseSelection
+            selectedCourse={(value) => {
+              setSelectCourse(value);
             }}
           />
         </div>

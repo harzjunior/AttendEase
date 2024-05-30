@@ -8,7 +8,7 @@ export const useAttendance = () => useContext(AttendanceContext);
 
 export const AttendanceProvider = ({ children }) => {
   const [selectMonth, setSelectMonth] = useState();
-  const [selectGrade, setSelectGrade] = useState();
+  const [selectCourse, setSelectCourse] = useState();
   const [attendanceListData, setAttendanceListData] = useState();
   const [totalPercentageData, setTotalPercentageData] = useState();
 
@@ -17,8 +17,8 @@ export const AttendanceProvider = ({ children }) => {
       value={{
         selectMonth,
         setSelectMonth,
-        selectGrade,
-        setSelectGrade,
+        selectCourse,
+        setSelectCourse,
         attendanceListData,
         setAttendanceListData,
         totalPercentageData,

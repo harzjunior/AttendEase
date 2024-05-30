@@ -18,7 +18,7 @@ import { LoaderIcon } from "lucide-react";
 export function AddNewStudent({ onAddStudent, refreshData }) {
   const [openDialog, setOpenDialog] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [grades, setGrades] = useState([]);
+  const [courses, setCourses] = useState([]);
 
   // react hook form
   const {
@@ -53,9 +53,9 @@ export function AddNewStudent({ onAddStudent, refreshData }) {
   //let's call our API
   const getAllData = async () => {
     try {
-      const gradeResp = await GlobalApi.getAllGrades();
+      const courseResp = await GlobalApi.getAllCourses();
 
-      setGrades(gradeResp.data);
+      setCourses(courseResp.data);
     } catch (error) {
       console.error(error);
     }
@@ -83,14 +83,14 @@ export function AddNewStudent({ onAddStudent, refreshData }) {
               )}
             </div>
             <div className="flex flex-col py-2 space-y-2">
-              <label>Select a Grade</label>
+              <label>Select a Course</label>
               <select
                 className="p-3 border rounded-lg"
-                {...register("grade", { required: true })}
+                {...register("course", { required: true })}
               >
-                {grades.map((item) => (
-                  <option key={item.id} value={item.grade}>
-                    {item.grade}
+                {courses.map((item) => (
+                  <option key={item.id} value={item.course}>
+                    {item.course}
                   </option>
                 ))}
               </select>

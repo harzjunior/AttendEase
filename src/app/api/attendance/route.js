@@ -10,7 +10,7 @@ import { and, eq } from "drizzle-orm";
 export async function GET(req) {
   // get the attendance from the table
   const { searchParams } = new URL(req.url);
-  const grade = searchParams.get("grade");
+  const course = searchParams.get("course");
   const month = searchParams.get("month");
 
   try {
@@ -20,7 +20,7 @@ export async function GET(req) {
         present: ATTENDANCE.present,
         day: ATTENDANCE.day,
         date: ATTENDANCE.date,
-        grade: STUDENTS.grade,
+        course: STUDENTS.course,
         studentId: STUDENTS.id,
         attendanceId: ATTENDANCE.id,
       })
@@ -29,7 +29,7 @@ export async function GET(req) {
         ATTENDANCE,
         and(eq(STUDENTS.id, ATTENDANCE.studentId), eq(ATTENDANCE.date, month))
       )
-      .where(eq(STUDENTS.grade, grade));
+      .where(eq(STUDENTS.course, course));
 
     return NextResponse.json({ success: true, result });
   } catch (error) {

@@ -6,17 +6,17 @@ import {
   boolean,
 } from "drizzle-orm/mysql-core";
 
-// Grade Schema
-export const GRADES = mysqlTable("grades", {
+// Course Schema
+export const COURSES = mysqlTable("courses", {
   id: int("id", { length: 11 }).primaryKey(),
-  grade: varchar("grade", { length: 10 }).notNull(),
+  course: varchar("course", { length: 50 }).notNull(),
 });
 
 // Students Schema
 export const STUDENTS = mysqlTable("students", {
   id: int("id", { length: 11 }).autoincrement().primaryKey(),
   fullName: varchar("fullName", { length: 255 }), //
-  grade: varchar("grade", { length: 10 }).notNull(),
+  course: varchar("course", { length: 50 }).notNull(),
   phone: varchar("phone", { length: 255 }).notNull(),
   address: varchar("address", { length: 255 }).notNull(),
 });

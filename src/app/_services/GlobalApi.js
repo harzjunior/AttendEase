@@ -1,8 +1,8 @@
 const { default: axios } = require("axios");
 
 // e.g, we can use it in AddNewStudent component
-//gets all grades from db
-const getAllGrades = () => axios.get("/api/grade");
+//gets all courses from db
+const getAllCourses = () => axios.get("/api/course");
 
 // ==========================================Students============================================
 //create student and used in submit form
@@ -17,9 +17,9 @@ const deleteStudentRecord = (id) => axios.delete("/api/student?id=" + id);
 // ==========================================Attendance============================================
 
 //gets all Attendances from db
-const getAttendanceList = (grade, month) => {
-  // console.log(`Fetching attendance for grade=${grade}&month=${month}`);
-  return axios.get(`/api/attendance?grade=${grade}&month=${month}`);
+const getAttendanceList = (course, month) => {
+  // console.log(`Fetching attendance for course=${course}&month=${month}`);
+  return axios.get(`/api/attendance?course=${course}&month=${month}`);
 };
 
 //create student and used in submit form
@@ -33,14 +33,14 @@ const deleteAttendance = (studentId, day, date) => {
 };
 
 // ==========================================Dashboard============================================
-//gets date and grade for records for stats from db
+//gets date and course for records for stats from db
 
-const getTotalPresentCountByDay = (date, grade) => {
-  return axios.get(`/api/dashboard?date=${date}&grade=${grade}`);
+const getTotalPresentCountByDay = (date, course) => {
+  return axios.get(`/api/dashboard?date=${date}&course=${course}`);
 };
 
 export default {
-  getAllGrades,
+  getAllCourses,
   createNewStudent,
   getAllStudents,
   deleteStudentRecord,

@@ -7,7 +7,7 @@ export async function GET(req) {
   // get the attendance from the table
   const { searchParams } = new URL(req.url);
   const date = searchParams.get("date");
-  const grade = searchParams.get("grade");
+  const course = searchParams.get("course");
 
   try {
     const result = await db
@@ -21,7 +21,7 @@ export async function GET(req) {
         and(eq(ATTENDANCE.studentId, STUDENTS.id), eq(ATTENDANCE.date, date))
       )
       .groupBy(ATTENDANCE.day)
-      .where(eq(STUDENTS.grade, grade))
+      .where(eq(STUDENTS.course, course))
       .orderBy(desc(ATTENDANCE.day))
       .limit(7);
 
