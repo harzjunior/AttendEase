@@ -31,7 +31,7 @@ function Student() {
 
   return (
     <div className="p-7">
-      <h2 className="flex justify-between items-center font-bold text-2xl ">
+      <h2 className="flex flex-col md:flex-row gap-2 justify-between items-center font-bold text-2xl ">
         {totalStudent ? "Total " : ""} Students{" "}
         {totalStudent ? totalStudent : ""}
         <AddNewStudent

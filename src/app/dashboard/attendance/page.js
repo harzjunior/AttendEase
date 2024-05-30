@@ -39,7 +39,7 @@ function Attendance() {
   return (
     <div className="p-10">
       <h2 className="font-bold text-2xl ">Attendance</h2>
-      <div className="flex items-center border shadow-sm rounded-lg my-5 p-5 gap-4 ">
+      <div className="flex flex-col md:flex-row  items-center border shadow-sm rounded-lg my-5 p-5 gap-4 ">
         <div className="flex items-center gap-2">
           <label>Select Month:</label>
           <MonthSelection

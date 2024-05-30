@@ -59,14 +59,14 @@ function Dashboard() {
 
   return (
     <div className="p-10">
-      <div className="flex justify-between items-center gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-center gap-4">
         <div className="flex gap-3 items-center ">
           <h2 className="font-bold text-2xl">Attendance:</h2>
-          <code className="mt-1 text-xs">
+          {/* <code className="mt-1 text-xs">
             Month of:
             <em> {moment(selectMonth).format("MMMM")}</em> Course:
             <em> {selectCourse}</em>
-          </code>
+          </code> */}
         </div>
         <div className="flex items-center gap-4">
           <MonthSelection selectedMonth={setSelectMonth} />

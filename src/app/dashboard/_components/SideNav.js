@@ -1,10 +1,19 @@
 "use client";
 
 import { GraduationCap, Hand, LayersIcon, Settings } from "lucide-react";
-import Image from "next/image";
 import Avatar from "./common/Avatar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Logo from "./common/Logo";
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarTrigger,
+} from "@/components/ui/menubar";
+import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 
 function SideNav() {
   const menuList = [
@@ -40,15 +49,7 @@ function SideNav() {
   return (
     <div className="border shadow-md h-screen p-5">
       <div className="flex justify-center bg-slate-100 shadow-md">
-        <Link href="/">
-          <Image
-            src={"/logo.svg"}
-            height={200}
-            width={75}
-            alt="logo"
-            priority
-          />
-        </Link>
+        <Logo />
       </div>
       <hr className="my-5"></hr>
 
@@ -66,10 +67,30 @@ function SideNav() {
       ))}
 
       {/* user avatar */}
-      <Avatar
-        bool={true}
-        avClass="flex gap-2 items-center bottom-5 fixed p-2"
-      />
+      <div className=" bottom-5 fixed">
+        <Menubar className="bg-[#f5f5f5] w-[fit-content] py-5">
+          <MenubarMenu>
+            <MenubarTrigger className="text-left">
+              <Avatar bool={true} avClass="flex space-x-2" />
+            </MenubarTrigger>
+            <MenubarContent>
+              <MenubarItem>
+                <Avatar
+                  bool={true}
+                  avClass="flex gap-2 items-center bottom-5 p-2"
+                />
+              </MenubarItem>
+              <MenubarSeparator />
+              <MenubarItem inset className="cursor-pointer">
+                Account details
+              </MenubarItem>
+              <MenubarItem inset>
+                <LogoutLink>Sign out</LogoutLink>
+              </MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+        </Menubar>
+      </div>
     </div>
   );
 }

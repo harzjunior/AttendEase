@@ -2,6 +2,7 @@
 
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import Image from "next/image";
+import Link from "next/link";
 
 function Avatar({ avClass, bool }) {
   const { user } = useKindeBrowserClient();
@@ -36,12 +37,16 @@ function Avatar({ avClass, bool }) {
                 <h2 className="text-sm font-bold">
                   {user?.given_name} {user?.family_name}
                 </h2>
-                <h2 className="text-xs text-slate-400">{user?.email}</h2>
+                <h2 className="text-xs text-slate-400">
+                  <Link href={`mailto:${user?.email}`}>{user?.email}</Link>
+                </h2>
               </>
             ) : (
               <>
                 <h2 className="text-sm font-bold">Jon Doe</h2>
-                <h2 className="text-xs text-slate-400">jondoe@gmail.com</h2>
+                <h2 className="text-xs text-slate-400">
+                  <Link href={`mailto:jondoe@gmail.com`}>jondoe@gmail.com</Link>
+                </h2>
               </>
             )}
           </>

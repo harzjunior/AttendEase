@@ -97,7 +97,7 @@ function AttendanceGrid() {
 
   const pagination = true;
   const paginationPageSize = 10;
-  const paginationPageSizeSelector = [10, 25, 50];
+  const paginationPageSizeSelector = [10, 25, 50, 100, 250, 500];
 
   return (
     <div

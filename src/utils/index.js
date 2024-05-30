@@ -22,4 +22,3 @@ async function createConnection() {
 
 const connection = await createConnection();
 export const db = drizzle(connection);
- 
