@@ -1,3 +1,5 @@
+"user client";
+
 // src/app/dashboard/_components/UserContext.js
 import React, { createContext, useContext, useState } from "react";
 
