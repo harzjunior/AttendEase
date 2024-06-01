@@ -7,7 +7,7 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    router.push("/api/auth/login?post_login_redirect_url=/dashboard");
+    router.push("/api/auth/login?post_login_redirect_url=/dashboardss");
   }, [router]);
   return <main className=""></main>;
 }

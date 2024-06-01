@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AddNewStudent } from "./_components/AddNewStudent";
 import GlobalApi from "@/app/_services/GlobalApi";
 import StudentTableList from "./_components/StudentTableList";
+import { StudentProfile } from "./_components/StudentProfile";
 
 function Student() {
   const [students, setStudents] = useState([]);
@@ -27,6 +28,14 @@ function Student() {
     setStudents((prevStudents) => [...prevStudents, newStudent]);
   };
 
+  //for StudentProfile component to update live data
+  const handleStudentProfile = (newStudentProfile) => {
+    setStudents((prevStudentProfile) => [
+      ...prevStudentProfile,
+      newStudentProfile,
+    ]);
+  };
+
   const totalStudent = students.length;
 
   return (
@@ -34,10 +43,16 @@ function Student() {
       <h2 className="flex flex-col md:flex-row gap-2 justify-between items-center font-bold text-2xl ">
         {totalStudent ? "Total " : ""} Students{" "}
         {totalStudent ? totalStudent : ""}
-        <AddNewStudent
-          onAddStudent={handleAddStudent}
-          refreshData={getAllData} // for AddNewStudent component to show the current update after record has been added
-        />
+        <div className="flex gap-3">
+          <StudentProfile
+            onAddStudent={handleStudentProfile}
+            refreshData={getAllData}
+          />
+          <AddNewStudent
+            onAddStudent={handleAddStudent}
+            refreshData={getAllData} // for AddNewStudent component to show the current update after record has been added
+          />
+        </div>
       </h2>
       <StudentTableList
         students={students}

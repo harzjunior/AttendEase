@@ -1,6 +1,6 @@
 "use client";
 
-import { GraduationCap, Hand, LayersIcon, Settings } from "lucide-react";
+import { GraduationCap, Hand, LayersIcon, User } from "lucide-react";
 import Avatar from "./common/Avatar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -37,9 +37,9 @@ function SideNav() {
     },
     {
       id: 4,
-      name: "Settings",
-      icon: Settings,
-      path: "/dashboard/settings",
+      name: "profile",
+      icon: User,
+      path: "/dashboard/profile",
     },
   ];
 

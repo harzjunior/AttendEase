@@ -1,7 +1,7 @@
 const { NextResponse } = require("next/server");
 import { db } from "@/utils";
 import { STUDENTS } from "@/utils/schema";
-import { eq } from "drizzle-orm";
+import {  eq } from "drizzle-orm";
 
 // we will use this API in our GlobalApi.js
 
@@ -37,5 +37,18 @@ export async function DELETE(req) {
   const result = await db
     .delete(STUDENTS)
     .where(eq(STUDENTS.id, parseInt(_id))); //delete by student id that matches searchParam _id
+  return NextResponse.json({ success: true, result });
+}
+
+//patch data
+export async function PATCH(req) {
+  const data = await req.json();
+  const { id, ...updateData } = data;
+
+  const result = await db
+    .update(STUDENTS)
+    .set(updateData)
+    .where(eq(STUDENTS.id, parseInt(id)));
+
   return NextResponse.json({ success: true, result });
 }

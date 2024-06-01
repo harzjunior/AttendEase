@@ -5,7 +5,7 @@ import Footer from "./_components/Footer";
 
 function layout({ children }) {
   return (
-    <div>
+    <div className="flex flex-col justify-between ">
       <div className="md:w-64 fixed hidden md:block">
         <SideNav />
       </div>
@@ -13,7 +13,7 @@ function layout({ children }) {
         <Header />
         {children}
       </div>
-      <div className="md:ml-64">
+      <div className="md:ml-64 mt-5">
         <Footer />
       </div>
     </div>

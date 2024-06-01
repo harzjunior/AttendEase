@@ -5,7 +5,7 @@ import { AgGridReact } from "ag-grid-react"; // React Data Grid Component
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the grid
 import { Button } from "@/components/ui/button";
-import { Search, Trash } from "lucide-react";
+import { FilePenLine, Search, Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
 import {
   AlertDialog,
@@ -20,9 +20,11 @@ import {
 } from "@/components/ui/alert-dialog";
 import GlobalApi from "@/app/_services/GlobalApi";
 import { toast } from "sonner";
+import EditStudentForm from "./EditStudentForm";
 
 function StudentTableList({ students, refreshData }) {
   const [searchInput, setSearchInput] = useState(""); // searchInput used in AgGridReact
+  const [selectedStudent, setSelectedStudent] = useState(null);
 
   //handleDelete record
   const handleDelete = (id) => {
@@ -37,6 +39,11 @@ function StudentTableList({ students, refreshData }) {
         console.error("Error deleting student record:", error);
         toast.warning("Failed to delete the record");
       });
+  };
+
+  //handleEdit record
+  const handleEdit = (student) => {
+    setSelectedStudent(student);
   };
 
   // custom button for the column grid and other component from shadCn/ui
@@ -72,6 +79,39 @@ function StudentTableList({ students, refreshData }) {
     );
   };
 
+  // custom button for the column grid and other component from shadCn/ui
+  const CustomEdit = (props) => {
+    return (
+      <AlertDialog>
+        <AlertDialogTrigger>
+          <Button className="bg-green-500">
+            <FilePenLine className="text-white" />
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-red-green">
+              Are you absolutely sure?
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently replace your
+              record and remove your data from our servers.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => handleEdit(props?.data)}
+              className="hover:bg-red-500"
+            >
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    );
+  };
+
   // Column ag-grid Definitions: Defines the columns to be displayed.
   const [colDefs, setColDefs] = useState([
     { field: "id", width: 105, filter: true },
@@ -79,6 +119,7 @@ function StudentTableList({ students, refreshData }) {
     { field: "address", width: 300, filter: true },
     { field: "phone", filter: true },
     { field: "action", width: 90, cellRenderer: CustomBtn }, // custom column for actions
+    { field: "edit", width: 90, cellRenderer: CustomEdit }, // custom column for actions
   ]);
 
   // Row ag-grid Data: The data to be displayed.
@@ -98,7 +139,7 @@ function StudentTableList({ students, refreshData }) {
 
   const pagination = true;
   const paginationPageSize = 10;
-  const paginationPageSizeSelector = [10, 25, 50,100,250,500];
+  const paginationPageSizeSelector = [10, 25, 50, 100, 250, 500];
 
   return (
     <div className="my-7">
@@ -110,7 +151,7 @@ function StudentTableList({ students, refreshData }) {
         <div className="flex items-center gap-2 mb-4 p-2 rounded-lg border shadow-sm max-w-sm">
           <Search />
           <input
-            className="outline-none w-full"
+            className="outline-none w-full text-black"
             type="text"
             placeholder="Search on record..."
             onChange={(e) => {
@@ -127,6 +168,13 @@ function StudentTableList({ students, refreshData }) {
           paginationPageSizeSelector={paginationPageSizeSelector}
         />
       </div>
+      {selectedStudent && (
+        <EditStudentForm
+          student={selectedStudent}
+          onClose={() => setSelectedStudent(null)}
+          refreshData={refreshData}
+        />
+      )}
     </div>
   );
 }

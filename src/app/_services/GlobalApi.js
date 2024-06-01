@@ -5,14 +5,19 @@ const { default: axios } = require("axios");
 const getAllCourses = () => axios.get("/api/course");
 
 // ==========================================Students============================================
+const BASE_URL = "/api/student";
+
 //create student and used in submit form
-const createNewStudent = (data) => axios.post("/api/student", data); //post method and pass in the data param
+const createNewStudent = (data) => axios.post(BASE_URL, data); //post method and pass in the data param
 
 //gets all students from db
-const getAllStudents = () => axios.get("/api/student");
+const getAllStudents = () => axios.get(BASE_URL);
 
 //deletes a students from db by id
-const deleteStudentRecord = (id) => axios.delete("/api/student?id=" + id);
+const deleteStudentRecord = (id) => axios.delete(BASE_URL + id);
+
+//update a students from db by id
+const editStudentRecord = (data) => axios.patch(BASE_URL, data);
 
 // ==========================================Attendance============================================
 
@@ -39,11 +44,26 @@ const getTotalPresentCountByDay = (date, course) => {
   return axios.get(`/api/dashboard?date=${date}&course=${course}`);
 };
 
+// ==========================================profile============================================
+//search a student profile from db by id
+// const searchStudent = (data) => axios.get("/api/profile", { data });
+
+const searchStudent = (data) => {
+  const params = new URLSearchParams();
+  if (data.fullName) params.append("fullName", data.fullName);
+  if (data.phone) params.append("phone", data.phone);
+  if (data.address) params.append("address", data.address);
+
+  return axios.get(`/api/profile?${params.toString()}`);
+};
+
 export default {
   getAllCourses,
   createNewStudent,
   getAllStudents,
   deleteStudentRecord,
+  searchStudent,
+  editStudentRecord,
   getAttendanceList,
   createAttendance,
   deleteAttendance,
