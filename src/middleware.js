@@ -8,7 +8,7 @@ export async function middleware(request) {
   if (!(await isAuthenticated())) {
     return NextResponse.redirect(
       new URL(
-        "/api/auth/login?post_login_redirect_url=/dashboardss",
+        "/api/auth/login?post_login_redirect_url=/dashboard",
         request.url
       )
     );
@@ -17,5 +17,5 @@ export async function middleware(request) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/dashboardss/:path*"],
+  matcher: ["/dashboard/:path*"],
 };
