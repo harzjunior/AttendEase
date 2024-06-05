@@ -5,19 +5,31 @@ import { AddNewStudent } from "./_components/AddNewStudent";
 import GlobalApi from "@/app/_services/GlobalApi";
 import StudentTableList from "./_components/StudentTableList";
 import { StudentProfile } from "./_components/StudentProfile";
+import { AddNewCourse } from "./_components/AddNewCourse";
 
 function Student() {
   const [students, setStudents] = useState([]);
+  const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    getAllData();
+    getAllStudentData();
+    getAllCoursesData();
   }, []);
 
   // let's call our API
-  const getAllData = async () => {
+  const getAllStudentData = async () => {
     try {
       const studentResp = await GlobalApi.getAllStudents();
       setStudents(studentResp.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getAllCoursesData = async () => {
+    try {
+      const courseResp = await GlobalApi.getAllCourses();
+      setCourses(courseResp.data);
     } catch (error) {
       console.error(error);
     }
@@ -37,26 +49,35 @@ function Student() {
   };
 
   const totalStudent = students.length;
+  const totalCourse = courses.length;
 
   return (
     <div className="p-7">
       <h2 className="flex flex-col md:flex-row gap-2 justify-between items-center font-bold text-2xl ">
-        {totalStudent ? "Total " : ""} Students{" "}
-        {totalStudent ? totalStudent : ""}
+        <div className="text-gray-600 text-center md:text-start">
+          <div>
+            {totalStudent ? "Total " : ""} Students{" "}
+            {totalStudent ? totalStudent : ""}
+          </div>
+          <div>
+            {totalCourse ? "Total " : ""} Courses{" "}
+            {totalCourse ? totalCourse : ""}
+          </div>
+        </div>
         <div className="flex gap-3">
-          <StudentProfile
-            onAddStudent={handleStudentProfile}
-            refreshData={getAllData}
+          <StudentProfile />
+          <AddNewCourse
+            refreshData={getAllCoursesData} // for AddNewStudent component to show the current update after record has been added
           />
           <AddNewStudent
             onAddStudent={handleAddStudent}
-            refreshData={getAllData} // for AddNewStudent component to show the current update after record has been added
+            refreshData={getAllStudentData} // for AddNewStudent component to show the current update after record has been added
           />
         </div>
       </h2>
       <StudentTableList
         students={students}
-        refreshData={getAllData} // for StudentTableList component to show the current update after record has been deleted
+        refreshData={getAllStudentData} // for StudentTableList component to show the current update after record has been deleted
       />
     </div>
   );

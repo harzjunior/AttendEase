@@ -8,7 +8,8 @@ import {
 
 // Course Schema
 export const COURSES = mysqlTable("courses", {
-  id: int("id", { length: 11 }).primaryKey(),
+  id: int("id", { length: 11 }).autoincrement().primaryKey(),
+  courseNumber: varchar("courseNumber", { length: 11 }).notNull(),
   course: varchar("course", { length: 50 }).notNull(),
 });
 

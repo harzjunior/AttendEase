@@ -31,13 +31,15 @@ function StudentTableList({ students, refreshData }) {
     GlobalApi.deleteStudentRecord(id)
       .then((resp) => {
         if (resp.data && resp.data.success) {
-          toast.warning("Record Successfully Deleted");
+          toast.success("Record Successfully Deleted");
           refreshData(); // call this function by props from Student component
+        } else {
+          toast.error("Failed to delete the record");
         }
       })
       .catch((error) => {
         console.error("Error deleting student record:", error);
-        toast.warning("Failed to delete the record");
+        toast.error("Failed to delete the record");
       });
   };
 

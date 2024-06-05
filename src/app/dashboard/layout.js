@@ -5,7 +5,7 @@ import Footer from "./_components/Footer";
 
 function layout({ children }) {
   return (
-    <div className="flex flex-col justify-between ">
+    <div className="flex h-screen flex-col justify-between ">
       <div className="md:w-64 fixed hidden md:block">
         <SideNav />
       </div>

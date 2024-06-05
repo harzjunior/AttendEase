@@ -2,10 +2,15 @@ const { default: axios } = require("axios");
 
 // e.g, we can use it in AddNewStudent component
 //gets all courses from db
-const getAllCourses = () => axios.get("/api/course");
+const COURSE_BASE_URL = "/api/course/";
+
+const getAllCourses = () => axios.get(COURSE_BASE_URL);
+
+//create course and used in submit form
+const createNewCourse = (data) => axios.post(COURSE_BASE_URL, data);
 
 // ==========================================Students============================================
-const BASE_URL = "/api/student";
+const BASE_URL = "/api/student/";
 
 //create student and used in submit form
 const createNewStudent = (data) => axios.post(BASE_URL, data); //post method and pass in the data param
@@ -14,7 +19,8 @@ const createNewStudent = (data) => axios.post(BASE_URL, data); //post method and
 const getAllStudents = () => axios.get(BASE_URL);
 
 //deletes a students from db by id
-const deleteStudentRecord = (id) => axios.delete(BASE_URL + id);
+// const deleteStudentRecord = (id) => axios.delete(BASE_URL + id);
+const deleteStudentRecord = (id) => axios.delete(`${BASE_URL}?id=${id}`);
 
 //update a students from db by id
 const editStudentRecord = (data) => axios.patch(BASE_URL, data);
@@ -59,6 +65,7 @@ const searchStudent = (data) => {
 
 export default {
   getAllCourses,
+  createNewCourse,
   createNewStudent,
   getAllStudents,
   deleteStudentRecord,
